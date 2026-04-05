@@ -1,0 +1,1228 @@
+#!/usr/bin/env python3
+"""Generate fun, engaging pregnancy/parenting articles as JSON."""
+
+import json
+
+articles = [
+    # === TTC (5 articles) ===
+    {
+        "id": "fun_preg_1",
+        "title": "The TTC Two-Week Wait Survival Kit",
+        "body": (
+            "## The Longest 14 Days of Your Life\n\n"
+            "You've done the deed, you've timed everything perfectly, and now... you wait. "
+            "The two-week wait (TWW) is basically the pregnancy equivalent of waiting for your "
+            "food delivery when you're already starving. Here's how to survive it without losing your mind.\n\n"
+            "## Your Survival Toolkit\n\n"
+            "- **Distraction snacks.** Stock up on your favorite comfort foods. You deserve them.\n"
+            "- **A really good TV series.** Now is the time to start that 8-season show everyone's been recommending.\n"
+            "- **A symptom-Googling blocker.** Okay, this doesn't exist, but it should. Every twinge is NOT a sign. (But also, maybe it is?!)\n"
+            "- **A journal.** Write down your feelings instead of spiraling at 2 AM.\n"
+            "- **Your partner.** Seriously, lean on them. They're in this wait too.\n\n"
+            "## What NOT to Do\n\n"
+            "- Don't test at 3 DPO. Just don't.\n"
+            "- Don't compare your symptoms to strangers on the internet.\n"
+            "- Don't cancel plans \"just in case.\" Live your life!\n\n"
+            "## The Real Talk\n\n"
+            "The TWW is hard because you care so much. That's beautiful, even when it's agonizing. "
+            "Be gentle with yourself. Whether this cycle is \"the one\" or not, you're doing an incredible thing "
+            "by showing up with hope.\n\n"
+            "*This article is for entertainment and support — not medical advice. Talk to your doctor with any concerns.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "TTC",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_2",
+        "title": "Fertility Myths That Need to Retire Immediately",
+        "body": (
+            "## Time to Bust Some Myths\n\n"
+            "The internet is full of fertility advice, and honestly, a lot of it belongs in the trash. "
+            "Let's sort fact from fiction so you can stop standing on your head after sex. (Yes, people really do that.)\n\n"
+            "## The Myths\n\n"
+            "- **\"Just relax and it'll happen.\"** Ah yes, the classic. If relaxing made babies, every vacation would end in pregnancy. Fertility is biology, not a vibe.\n"
+            "- **\"You should try every day.\"** Actually, every other day during your fertile window works great. Quality over quantity, folks.\n"
+            "- **\"Certain positions help.\"** Nope. Sperm are excellent swimmers. They don't need a specific launch angle.\n"
+            "- **\"It should happen right away.\"** It takes the average healthy couple up to a year. A YEAR. So breathe.\n"
+            "- **\"Pineapple core boosts implantation.\"** The evidence? Basically nonexistent. But hey, pineapple is delicious.\n\n"
+            "## What Actually Matters\n\n"
+            "- Know your cycle and fertile window\n"
+            "- Take prenatal vitamins (especially folic acid)\n"
+            "- Keep up healthy habits — but don't become a monk about it\n"
+            "- Talk to your doctor if you have concerns\n\n"
+            "The TTC journey is wild enough without bad advice making it worse. Trust science, trust your body, and maybe enjoy that pineapple anyway.\n\n"
+            "*For entertainment purposes — always consult your healthcare provider for medical guidance.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TTC",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_3",
+        "title": "TTC Together: How to Keep Your Relationship Fun",
+        "body": (
+            "## When Baby-Making Becomes a Business\n\n"
+            "Let's be honest: TTC can turn romance into a science project real fast. "
+            "Ovulation trackers, timed intimacy, temperature charts — it's a lot. "
+            "Here's how to keep the spark alive when you're also tracking cervical mucus.\n\n"
+            "## Keep the Fun Alive\n\n"
+            "- **Have non-TTC date nights.** Make a rule: no baby talk for one evening a week. Talk about literally anything else.\n"
+            "- **Surprise each other.** Leave a funny note, grab their favorite snack, send a meme that has nothing to do with fertility.\n"
+            "- **Laugh about it.** The absurdity of timed intimacy is genuinely funny if you let it be.\n"
+            "- **Check in emotionally.** \"How are you feeling about all this?\" goes a long way.\n"
+            "- **Remember why you're here.** You want to build a life together. That's pretty amazing.\n\n"
+            "## The Pressure Is Real\n\n"
+            "It's okay to feel stressed. It's okay if sex feels like homework sometimes. "
+            "The key is to acknowledge it together rather than pretending everything is magical. "
+            "Honesty is the sexiest fertility supplement out there.\n\n"
+            "## Pro Tip\n\n"
+            "Plan something fun for after the fertile window each month. A fancy dinner, a movie marathon, "
+            "a hike — something to look forward to that has zero to do with making a baby.\n\n"
+            "*This is relationship advice, not medical advice. See your doctor for fertility questions.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TTC",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_4",
+        "title": "The Partner's Guide to TTC: What She Actually Needs From You",
+        "body": (
+            "## Your Role Is Bigger Than You Think\n\n"
+            "So you're trying to conceive and you're wondering what you can actually DO besides, well, "
+            "the obvious. Good news: there's a lot. And it starts with understanding what your partner "
+            "is going through.\n\n"
+            "## What's Happening in Her World\n\n"
+            "- She's tracking everything — temperature, discharge, cycle days\n"
+            "- She's probably Googling symptoms at 11 PM\n"
+            "- She might feel like her body is a science experiment\n"
+            "- Every period can feel like a small loss\n\n"
+            "## What You Can Do\n\n"
+            "- **Learn the basics.** Know what an ovulation window is. Know what DPO means. Show her you're invested.\n"
+            "- **Don't say \"just relax.\"** Seriously. This is the number one thing NOT to say.\n"
+            "- **Be present on hard days.** If the test is negative, don't minimize it. Just be there.\n"
+            "- **Take care of your health too.** Sperm quality matters! Cut back on the hot tub sessions and eat your veggies.\n"
+            "- **Initiate romance that isn't about timing.** She needs to feel wanted, not just scheduled.\n\n"
+            "## The Bottom Line\n\n"
+            "TTC is a team sport. The more you show up — emotionally, physically, and with the occasional "
+            "surprise ice cream delivery — the stronger you'll be as a team. And that's exactly the kind of "
+            "team that makes great parents.\n\n"
+            "*Supportive guidance only — consult a healthcare provider for medical concerns.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TTC",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_5",
+        "title": "Fertility-Friendly Foods That Actually Taste Good",
+        "body": (
+            "## Eating for Two (Hopefully, Soon)\n\n"
+            "Every TTC article tells you to \"eat healthy,\" but what does that actually mean when you're "
+            "staring at your fridge at 7 PM? Here's a no-nonsense guide to foods that support fertility "
+            "AND don't taste like sadness.\n\n"
+            "## The Good Stuff\n\n"
+            "- **Avocados.** Healthy fats, folate, and they make everything better. Toast, salads, straight from the skin with a spoon — no judgment.\n"
+            "- **Salmon.** Omega-3s are your friend. Grill it, bake it, put it on rice and call it a poke bowl.\n"
+            "- **Berries.** Antioxidant powerhouses that are also nature's candy. Smoothie time!\n"
+            "- **Leafy greens.** Spinach in a smoothie = you can't even taste it. Sneaky nutrition.\n"
+            "- **Eggs.** Protein, choline, vitamin D. The ultimate versatile food.\n"
+            "- **Walnuts.** Great for both partners. Snack on them, toss them in oatmeal, add to salads.\n\n"
+            "## Easy Meal Ideas\n\n"
+            "- Salmon bowl with avocado and brown rice\n"
+            "- Berry smoothie with spinach and Greek yogurt\n"
+            "- Egg scramble loaded with veggies\n"
+            "- Walnut-crusted chicken with roasted sweet potatoes\n\n"
+            "## The Rule of \"Good Enough\"\n\n"
+            "You don't need to be perfect. Eating a salad AND a cookie is fine. "
+            "Nutrition is about patterns, not perfection. Feed your body well, but also feed your soul.\n\n"
+            "*Nutritional info for general wellness — see a dietitian or doctor for personalized advice.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "TTC",
+        "subStage": None,
+        "forPartner": 0,
+    },
+
+    # === TRIMESTER_1 (8 articles) ===
+    {
+        "id": "fun_preg_6",
+        "title": "10 Ridiculous Things No One Tells You About the First Trimester",
+        "body": (
+            "## Welcome to the Secret Club\n\n"
+            "Congratulations, you're pregnant! Now here's everything the books forgot to mention. "
+            "Buckle up — it gets weird.\n\n"
+            "## The Unfiltered Truth\n\n"
+            "- **The exhaustion is UNREAL.** Growing a placenta is basically running a marathon while sitting on your couch. Napping is not lazy — it's productive.\n"
+            "- **\"Morning sickness\" is a lie.** It's all-day sickness. It's 3-AM sickness. It's smelling-your-coworker's-lunch sickness.\n"
+            "- **Your sense of smell becomes superhuman.** You will smell things that shouldn't have a smell. The fridge. Your pillow. AIR.\n"
+            "- **You'll pee constantly.** Your uterus is the size of a grapefruit and it's sitting right on your bladder. Fun!\n"
+            "- **Food aversions are wild.** Yesterday's favorite food is today's enemy. RIP chicken.\n"
+            "- **The bloat is immediate.** You won't \"show\" for weeks, but you'll FEEL like you're showing by week 6.\n"
+            "- **Vivid dreams.** Your brain goes to the movies every single night. Buckle up for some weird plots.\n"
+            "- **Emotional rollercoasters.** Crying at dog commercials is your new normal.\n"
+            "- **Constipation.** Glamorous? No. Common? Extremely. Thank progesterone.\n"
+            "- **The secret-keeping is HARD.** You're going through the most dramatic thing ever and can't tell anyone. Torture.\n\n"
+            "## The Silver Lining\n\n"
+            "Every weird symptom means your body is doing something extraordinary. You're literally building a human. "
+            "That's pretty metal.\n\n"
+            "*Fun facts only — talk to your OB about any symptoms that concern you.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_7",
+        "title": "First Trimester Snacks That Won't Make You Gag",
+        "body": (
+            "## When Everything Sounds Disgusting\n\n"
+            "Eating in the first trimester is a special kind of challenge. Your body needs nutrition, "
+            "but your stomach has other plans. Here are snacks that have survived the first-trimester gauntlet.\n\n"
+            "## The MVP Snacks\n\n"
+            "- **Saltine crackers.** The OG. Keep them on your nightstand. Eat them before you even sit up in the morning.\n"
+            "- **Ginger chews.** Nature's anti-nausea candy. Pop one whenever the queasiness hits.\n"
+            "- **Cold fruit.** Watermelon, grapes, frozen berries. Cold and refreshing often wins when warm food loses.\n"
+            "- **Plain toast.** Boring? Yes. Reliable? Absolutely.\n"
+            "- **Popsicles.** Hydration + cold + gentle flavor = first trimester hero.\n"
+            "- **Cheese and crackers.** Protein + carbs, the magic combo.\n"
+            "- **Smoothies.** Sneak in nutrients when chewing feels like too much commitment.\n"
+            "- **Pretzels.** Salty, crunchy, unoffensive. A true friend.\n\n"
+            "## Pro Tips\n\n"
+            "- Eat small amounts frequently — an empty stomach makes nausea worse\n"
+            "- Keep snacks EVERYWHERE: purse, car, desk, nightstand\n"
+            "- Don't force \"healthy\" if it makes you sick. Surviving is the goal right now\n"
+            "- Lemon water can help settle your stomach\n\n"
+            "## Permission Granted\n\n"
+            "If all you can eat is plain pasta and crackers for three weeks, that's FINE. "
+            "Your prenatal vitamin is picking up the slack. This phase doesn't last forever.\n\n"
+            "*General tips — discuss any severe nausea or inability to keep food down with your doctor.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_8",
+        "title": "Pregnancy Myths vs. Facts: The Fun Edition",
+        "body": (
+            "## Let's Play Myth or Fact!\n\n"
+            "Pregnancy advice has been passed down for generations, and some of it is... questionable. "
+            "Let's separate the wisdom from the nonsense.\n\n"
+            "## Round 1: Old Wives' Tales\n\n"
+            "- **\"Carrying high means it's a girl.\"** MYTH. How you carry depends on your body shape, muscle tone, and the baby's position. Not their chromosomes.\n"
+            "- **\"Heartburn means a hairy baby.\"** Actually... PARTIALLY TRUE?! A small Johns Hopkins study found a correlation. Science is weird.\n"
+            "- **\"You shouldn't raise your arms above your head.\"** MYTH. The cord doesn't work like that. Reach for things freely.\n"
+            "- **\"Eating spicy food induces labor.\"** MYTH. But it might induce heartburn. So there's that.\n\n"
+            "## Round 2: Modern Myths\n\n"
+            "- **\"You're eating for two.\"** MYTH (sort of). You need about 300 extra calories in later pregnancy. That's like... a banana and a yogurt.\n"
+            "- **\"No coffee at all.\"** MYTH. Up to 200mg of caffeine (one small coffee) is generally considered safe. Rejoice!\n"
+            "- **\"Flying is dangerous.\"** MYTH (usually). Flying is fine for most pregnancies up to 36 weeks. Check with your doc.\n"
+            "- **\"You can't exercise.\"** VERY MYTH. Exercise is great for most pregnancies! Just talk to your provider about what's right for you.\n\n"
+            "## The Takeaway\n\n"
+            "When in doubt, ask your doctor — not your aunt's neighbor's cousin who \"heard something once.\"\n\n"
+            "*Entertainment only — your healthcare provider is your best source of medical information.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_9",
+        "title": "Your Tiny Human at 8 Weeks: Smaller Than a Raspberry, Already Amazing",
+        "body": (
+            "## Big Things in Small Packages\n\n"
+            "At 8 weeks, your baby is about the size of a raspberry. A RASPBERRY. "
+            "And yet, the amount of development happening is absolutely mind-blowing.\n\n"
+            "## What's Going On In There\n\n"
+            "- **Fingers and toes are forming.** They're webbed right now, like a tiny frog. It's adorable in a sci-fi kind of way.\n"
+            "- **The heart is beating.** About 150-170 times per minute — twice as fast as yours. Overachiever already.\n"
+            "- **Facial features are developing.** Tiny nostrils, upper lip, and eyelids are taking shape. They're going to have a FACE.\n"
+            "- **The brain is growing rapidly.** About 250,000 neurons are forming every minute. Per MINUTE.\n"
+            "- **They're moving!** You can't feel it yet, but they're wiggling around in there like a little bean.\n\n"
+            "## Size Comparison Timeline\n\n"
+            "- Week 5: Sesame seed\n"
+            "- Week 6: Lentil\n"
+            "- Week 7: Blueberry\n"
+            "- Week 8: Raspberry\n"
+            "- Week 9: Cherry\n\n"
+            "## The Amazing Part\n\n"
+            "All of this is happening while you're just... going to work, eating crackers, and trying not to "
+            "fall asleep at your desk. Your body is running the most complex construction project in the universe "
+            "on autopilot. You're basically a superhero.\n\n"
+            "*Fun developmental info — your ultrasound and OB visits are the best way to track your baby's growth.*"
+        ),
+        "category": "BABY_DEVELOPMENT",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_10",
+        "title": "The First Trimester Emotional Survival Guide",
+        "body": (
+            "## Feeling Everything All at Once? Same.\n\n"
+            "One minute you're thrilled. The next you're terrified. Then you're crying because a commercial "
+            "showed a puppy finding its way home. Welcome to first trimester emotions.\n\n"
+            "## Why You Feel Like a Human Mood Ring\n\n"
+            "- **Hormones are SURGING.** HCG, progesterone, and estrogen are all skyrocketing. Your brain is basically swimming in a hormone soup.\n"
+            "- **You're processing huge news.** Even a planned pregnancy is a life-altering event. Your brain needs time to catch up.\n"
+            "- **You're exhausted.** Fatigue makes everything feel bigger and harder.\n"
+            "- **You're keeping a secret.** Carrying big news alone is emotionally heavy.\n\n"
+            "## What Helps\n\n"
+            "- **Let yourself feel it.** Crying is not weakness. It's processing.\n"
+            "- **Tell someone.** Even if you're not announcing widely, having ONE person to talk to is huge.\n"
+            "- **Move your body gently.** A walk can shift your mood more than you'd expect.\n"
+            "- **Lower the bar.** This is not the time for peak productivity. \"Good enough\" IS good enough.\n"
+            "- **Write it down.** Journaling helps externalize the swirl in your brain.\n\n"
+            "## Totally Normal Things to Feel\n\n"
+            "- Excited AND terrified simultaneously\n"
+            "- Guilty about not feeling \"happy enough\"\n"
+            "- Worried about everything (this one never fully goes away — welcome to parenthood)\n"
+            "- Disconnected from the pregnancy — it doesn't feel real yet, and that's okay\n\n"
+            "*If you're feeling persistently sad or anxious, reach out to your healthcare provider. Perinatal mood disorders are common and treatable.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_11",
+        "title": "First Trimester Partner Playbook: How to Be a Rockstar",
+        "body": (
+            "## She's Growing a Human. Here's How to Help.\n\n"
+            "Your partner might look the same on the outside, but inside? Total chaos. "
+            "The first trimester is secretly the hardest, and she needs you more than she might say.\n\n"
+            "## The Do's\n\n"
+            "- **Stock the snack drawer.** Crackers, ginger ale, whatever she can stomach. Keep it stocked without being asked.\n"
+            "- **Handle the smelly stuff.** Cooking, garbage, the dog — if it has a smell, volunteer as tribute.\n"
+            "- **Let her sleep.** She's not being lazy. Growing a placenta burns serious energy. Guard her naps like a bouncer.\n"
+            "- **Be patient with mood swings.** She's not choosing to cry at that commercial. Hormones are WILD right now.\n"
+            "- **Go to the appointments.** The first ultrasound is a moment you'll never forget. Be there.\n\n"
+            "## The Don'ts\n\n"
+            "- Don't say \"but you don't even look pregnant yet\" when she says she's exhausted\n"
+            "- Don't suggest she's \"overreacting\" to nausea\n"
+            "- Don't announce the pregnancy before she's ready (this is HER call)\n"
+            "- Don't compare her to other pregnant people\n\n"
+            "## Bonus Points\n\n"
+            "- Bring her water without being asked\n"
+            "- Research what's safe/not safe so she doesn't have to Google everything alone\n"
+            "- Say \"I'm proud of you\" — she needs to hear it\n\n"
+            "*Being a great partner is the best prep for being a great parent.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_12",
+        "title": "5-Minute Couple Check-Ins That Actually Work",
+        "body": (
+            "## Because \"How Was Your Day?\" Isn't Cutting It\n\n"
+            "Pregnancy changes everything — including your relationship. These quick daily check-ins "
+            "keep you connected without requiring a couples retreat or a therapy degree.\n\n"
+            "## The 5-Minute Format\n\n"
+            "Set a timer. Seriously. Five minutes, no phones, face to face.\n\n"
+            "- **Each person shares ONE high and ONE low from the day.** That's it. No fixing, no advice — just listening.\n"
+            "- **Then ask: \"What do you need from me this week?\"** Maybe it's help with dishes. Maybe it's just a hug. You won't know unless you ask.\n\n"
+            "## Conversation Starters That Don't Suck\n\n"
+            "- \"What's one thing about becoming a parent that excites you?\"\n"
+            "- \"What's one thing that scares you? (No judgment zone.)\"\n"
+            "- \"On a scale of 1 to 10, how are you doing emotionally? What would move you up one number?\"\n"
+            "- \"What's something I did recently that made you feel loved?\"\n"
+            "- \"What's something funny that happened today?\"\n\n"
+            "## Why This Matters\n\n"
+            "Couples who communicate well during pregnancy transition better into parenthood. "
+            "That's not just feel-good advice — research backs it up. Five minutes a day is a tiny investment "
+            "with massive returns.\n\n"
+            "## The Rule\n\n"
+            "No problem-solving during check-ins. This is about CONNECTING, not fixing. Save the logistics "
+            "for another time. Right now, just be two humans who love each other and are about to do "
+            "something incredible together.\n\n"
+            "*Relationship tips — not a substitute for professional counseling if you need it.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_13",
+        "title": "How to Tell People You're Pregnant (Without It Being Awkward)",
+        "body": (
+            "## The Big Reveal\n\n"
+            "You've been sitting on the biggest news of your life, and now it's time to share. "
+            "But HOW? Here are some options, from subtle to absolutely extra.\n\n"
+            "## The Classics\n\n"
+            "- **The ultrasound photo.** Timeless. Effective. Guaranteed tears from grandma.\n"
+            "- **\"We have news...\"** at a family dinner. Simple. Dramatic. Everyone cries into their pasta.\n"
+            "- **The bun in the oven.** Literally put a bun in your oven and wait for someone to open it. Dad joke energy and we love it.\n\n"
+            "## The Creative Ones\n\n"
+            "- **Custom onesie or bib.** \"Grandma's Favorite\" hits different when they don't have a grandchild yet.\n"
+            "- **Scratch-off card.** \"You're going to be a grandparent!\" The suspense is chef's kiss.\n"
+            "- **Pet announcement.** Dress up your dog with a \"Big Brother\" bandana. The internet will LOVE it.\n\n"
+            "## The Practical Stuff\n\n"
+            "- Tell your closest people first, in person if possible\n"
+            "- It's okay to tell people at different times — there's no rule that everyone finds out at once\n"
+            "- Have a plan for who tells who (so Uncle Jerry doesn't spill the beans at Thanksgiving)\n"
+            "- Be prepared for unsolicited advice to start IMMEDIATELY\n\n"
+            "## Remember\n\n"
+            "There's no wrong way to announce. Whether it's an elaborate photoshoot or a casual \"oh yeah, "
+            "I'm pregnant\" — it's YOUR moment. Own it however feels right.\n\n"
+            "*Just vibes — no medical content here!*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_1",
+        "subStage": None,
+        "forPartner": 0,
+    },
+
+    # === TRIMESTER_2 (9 articles) ===
+    {
+        "id": "fun_preg_14",
+        "title": "The Bizarre Pregnancy Cravings Hall of Fame",
+        "body": (
+            "## When Your Body Demands the Strangest Things\n\n"
+            "Pickles and ice cream? That's amateur hour. Real pregnancy cravings are on another level. "
+            "Welcome to the hall of fame.\n\n"
+            "## Legendary Cravings From Real Parents\n\n"
+            "- **Mustard on everything.** Toast, fruit, straight from the bottle — no surface was safe.\n"
+            "- **Ice. Just ice.** Crunching ice became a full-time hobby. (Note: excessive ice cravings can signal anemia — mention it to your doc!)\n"
+            "- **Sour candy at 3 AM.** Specifically Sour Patch Kids. The baby wants what the baby wants.\n"
+            "- **Mashed potatoes with hot sauce.** Comfort meets chaos.\n"
+            "- **The smell of gasoline.** You don't drink it (please don't), but suddenly gas stations smell INCREDIBLE.\n"
+            "- **Cereal for every meal.** Breakfast, lunch, dinner, midnight snack — Captain Crunch never lets you down.\n"
+            "- **Specific fast food items.** Not just \"a burger\" — the EXACT burger from THAT place on THAT street.\n\n"
+            "## The Science Behind the Weird\n\n"
+            "- Hormonal changes alter your taste buds and sense of smell\n"
+            "- Some cravings may signal nutritional needs (craving red meat might mean you need iron)\n"
+            "- Emotional comfort plays a role too — familiar foods feel safe during a wild time\n\n"
+            "## The Golden Rule\n\n"
+            "Indulge your cravings (within reason), laugh about the weird ones, and keep your partner on speed dial "
+            "for emergency snack runs. That's what they're there for.\n\n"
+            "*If you're craving non-food items like dirt or chalk (called pica), definitely talk to your doctor.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_15",
+        "title": "Your Baby Can Do WHAT in There?! Wild Womb Facts",
+        "body": (
+            "## Prepare to Have Your Mind Blown\n\n"
+            "Your baby isn't just floating around in there doing nothing. They're living their BEST life. "
+            "Here are the wildest things happening in your womb right now.\n\n"
+            "## The Incredible Facts\n\n"
+            "- **They drink their own pee.** Your baby swallows amniotic fluid, pees it out, then swallows it again. It's a whole cycle. Try not to think about it.\n"
+            "- **They can taste your food.** Flavors from what you eat pass into the amniotic fluid. Your baby is basically dining with you.\n"
+            "- **They get hiccups.** Those rhythmic little bumps? Baby hiccups. They're practicing breathing and sometimes get the hiccups. Adorable.\n"
+            "- **They can hear you.** By the second trimester, they can hear your voice, music, and your heartbeat. Talk to that bump!\n"
+            "- **They dream.** REM sleep has been observed in utero. WHAT are they dreaming about?! The mysteries of existence, probably.\n"
+            "- **They have fingerprints.** Unique ones, formed by week 17. Already one of a kind.\n"
+            "- **They practice facial expressions.** Smiling, frowning, yawning — your baby is rehearsing for their debut.\n\n"
+            "## The Most Amazing Part\n\n"
+            "While you're going about your day, a tiny human inside you is tasting food, dreaming dreams, "
+            "and developing a face that will one day smile at you. If that doesn't make you feel like a walking miracle, "
+            "nothing will.\n\n"
+            "*Cool facts for fun — your doctor is your best source for development milestones.*"
+        ),
+        "category": "BABY_DEVELOPMENT",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_16",
+        "title": "Second Trimester: The 'Golden Period' and Why Everyone Lied a Little",
+        "body": (
+            "## The Honeymoon Phase (Sort Of)\n\n"
+            "Everyone says the second trimester is the best. And compared to the first trimester? Yeah, probably. "
+            "But let's set realistic expectations.\n\n"
+            "## The Good\n\n"
+            "- **Nausea usually eases up.** PRAISE BE. Food is your friend again.\n"
+            "- **Energy returns.** You'll feel like a functional human! Maybe even a productive one!\n"
+            "- **You start showing.** And it's cute! People can tell you're pregnant now, not just bloated.\n"
+            "- **You feel the baby move.** First flutters around 16-20 weeks. It's magical.\n"
+            "- **The anatomy scan.** Seeing your baby in detail for the first time is genuinely one of the coolest experiences ever.\n\n"
+            "## The Stuff They Don't Mention\n\n"
+            "- **Round ligament pain.** Surprise stabbing pains when you move too fast. Cool cool cool.\n"
+            "- **Your body is changing FAST.** Stretch marks, skin changes, and growing out of your clothes weekly.\n"
+            "- **Unsolicited belly touches begin.** Why do strangers think this is okay?!\n"
+            "- **Pregnancy brain is REAL.** You will put your keys in the fridge. It's fine.\n"
+            "- **Heartburn enters the chat.** And it's planning to stay.\n\n"
+            "## The Verdict\n\n"
+            "The second trimester IS better than the first for most people. But \"golden\" is relative. "
+            "You're still growing a human, and that's hard work no matter which trimester you're in. "
+            "Enjoy the good parts and give yourself grace for the rest.\n\n"
+            "*Lighthearted reflections — always bring up new symptoms with your provider.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_17",
+        "title": "Bump-Friendly Workouts That Are Actually Fun",
+        "body": (
+            "## Exercise Doesn't Have to Be Boring (or Scary)\n\n"
+            "Moving your body during pregnancy is great for you AND baby. But \"pregnancy exercise\" doesn't "
+            "mean grimly walking on a treadmill while staring at a wall. Let's make it fun.\n\n"
+            "## Workouts Worth Trying\n\n"
+            "- **Prenatal yoga.** Stretchy, calm, and full of other pregnant people who also can't see their toes. Community!\n"
+            "- **Swimming.** Feeling weightless when you're carrying extra weight is basically a religious experience.\n"
+            "- **Dance workouts.** Put on your favorite playlist and move. Nobody's watching. The baby can hear the music and is vibing too.\n"
+            "- **Walking with a podcast.** Fresh air + entertainment = the easiest workout ever.\n"
+            "- **Prenatal Pilates.** Core strength that'll help during labor and recovery. Future you says thanks.\n"
+            "- **Gentle cycling (stationary).** All the cardio, none of the balance concerns.\n\n"
+            "## The Guidelines\n\n"
+            "- You should be able to hold a conversation while exercising\n"
+            "- Stay hydrated like it's your job\n"
+            "- Skip exercises that involve lying flat on your back after the first trimester\n"
+            "- Listen to your body — if something hurts, stop\n"
+            "- Pelvic floor exercises are your secret weapon. Do them daily.\n\n"
+            "## The Most Important Thing\n\n"
+            "Any movement counts. A 10-minute walk is better than no walk. Stretching on the living room floor "
+            "while watching TV is exercise. Lower the bar and you'll actually do it.\n\n"
+            "*Get clearance from your provider before starting or changing your exercise routine.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_18",
+        "title": "Things Your Partner Wishes You Knew Right Now",
+        "body": (
+            "## A Note From the Other Side of the Bump\n\n"
+            "Hey, pregnant person — your partner has feelings too. And some things they might not know how to say. "
+            "Consider this a gentle translation.\n\n"
+            "## What They're Probably Thinking\n\n"
+            "- **\"I feel helpless sometimes.\"** They can't take away the nausea or the back pain. That powerlessness is hard.\n"
+            "- **\"I'm scared too.\"** They might not show it, but the weight of impending parenthood hits them too.\n"
+            "- **\"I don't always know what to do.\"** Should they rub your back? Give you space? Bring snacks? They're guessing.\n"
+            "- **\"I want to feel included.\"** The baby is literally inside YOU. They can feel like an outsider in their own pregnancy journey.\n"
+            "- **\"I'm so proud of you.\"** Watching you handle all of this is genuinely awe-inspiring to them.\n\n"
+            "## How to Bridge the Gap\n\n"
+            "- **Tell them what you need.** Specifically. \"I need you to handle dinner tonight\" is better than sighing loudly.\n"
+            "- **Include them in decisions.** Nursery colors, name discussions, doctor visits — make it a team thing.\n"
+            "- **Ask how THEY'RE feeling.** It means the world.\n"
+            "- **Let them help imperfectly.** If they fold the onesies wrong, let it go. They're trying.\n\n"
+            "## The Bottom Line\n\n"
+            "You're both becoming parents for the first time, and neither of you has done this before. "
+            "Grace, honesty, and the occasional midnight snack run together — that's the recipe.\n\n"
+            "*Relationship reflections — not a substitute for couples counseling if you need it.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_19",
+        "title": "Nursery Planning Without Losing Your Mind (or Budget)",
+        "body": (
+            "## The Pinterest Trap and How to Escape It\n\n"
+            "Pinterest nurseries have hardwood floors, custom murals, and furniture that costs more than your car. "
+            "Your baby will not care. Here's how to create a great nursery without a second mortgage.\n\n"
+            "## What Your Baby Actually Needs\n\n"
+            "- **A safe place to sleep.** Crib, bassinet — that's the priority. Flat, firm mattress, fitted sheet, nothing else in there.\n"
+            "- **A place for diaper changes.** A changing pad on top of a dresser works perfectly. No need for a dedicated $400 changing table.\n"
+            "- **A comfy spot for you.** YOU are the one who'll be in this room at 3 AM. Get a chair you actually like sitting in.\n"
+            "- **Good lighting options.** Overhead for daytime, dim lamp or nightlight for nighttime feeds.\n\n"
+            "## Money-Saving Moves\n\n"
+            "- Buy the crib new (for safety standards), but EVERYTHING else can be secondhand\n"
+            "- Facebook Marketplace is a goldmine for nursery furniture\n"
+            "- Skip the wipe warmer. Just... skip it.\n"
+            "- You don't need a theme. A few cute prints and a fresh coat of paint go a long way\n"
+            "- The diaper pail is the one splurge that's actually worth it. Trust us.\n\n"
+            "## Timeline\n\n"
+            "Don't stress about finishing the nursery before the baby arrives. Newborns sleep in your room for the first "
+            "few months anyway. You have time. Breathe.\n\n"
+            "*Practical tips from the trenches — not safety guidelines. Check CPSC.gov for current safe sleep recommendations.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_20",
+        "title": "The Gender Reveal Dilemma: To Know or Not to Know?",
+        "body": (
+            "## The Great Debate\n\n"
+            "To find out or keep it a surprise? This is one of those decisions that somehow becomes EVERYONE's "
+            "business. Here's a totally unbiased breakdown. (Just kidding, there's no wrong answer.)\n\n"
+            "## Team Find Out\n\n"
+            "- **You can plan!** Names, clothes, nursery — everything gets easier with one less unknown.\n"
+            "- **Bonding.** Some parents feel more connected when they can say \"he\" or \"she\" instead of \"the baby.\"\n"
+            "- **You get to share.** The anatomy scan becomes this amazing moment of revelation.\n"
+            "- **Practical gift registry.** Though honestly, gender-neutral stuff is awesome too.\n\n"
+            "## Team Surprise\n\n"
+            "- **The delivery room reveal.** Literally one of the only genuine surprises left in life.\n"
+            "- **Less gendered stuff.** You'll end up with practical gifts instead of 47 tutus or tiny bow ties.\n"
+            "- **It's a great motivator during labor.** \"Push to find out!\" is surprisingly effective.\n"
+            "- **The mystery is kind of fun.** People CANNOT handle not knowing, and watching them squirm is entertaining.\n\n"
+            "## The Middle Ground\n\n"
+            "- Find out but don't tell anyone else\n"
+            "- Have your doctor write it in an envelope and decide later\n"
+            "- One partner finds out, the other doesn't (chaotic but some people love it)\n\n"
+            "## Whatever You Choose\n\n"
+            "It's YOUR pregnancy. If Aunt Karen has an opinion, smile and nod. This decision belongs to you and your partner. Period.\n\n"
+            "*Just for fun — zero medical content here!*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_21",
+        "title": "Second Trimester Partner Check: Are You Showing Up?",
+        "body": (
+            "## Halftime Report\n\n"
+            "The second trimester is when things get real. The bump is growing, the nursery needs planning, "
+            "and your partner needs you to level up. Here's your honest check-in.\n\n"
+            "## The Scoreboard\n\n"
+            "- **Have you been to an appointment?** If not, the anatomy scan (around 20 weeks) is a MUST. Seeing your baby in detail is unforgettable.\n"
+            "- **Do you know what week she is?** If you have to think hard, that's a sign to pay more attention.\n"
+            "- **Have you talked about names?** This is the fun part! Don't outsource it to a baby name app.\n"
+            "- **Are you helping with logistics?** Nursery setup, baby gear research, hospital registration — don't wait to be asked.\n\n"
+            "## Level Up Moves\n\n"
+            "- Read ONE chapter of a pregnancy/parenting book. Just one.\n"
+            "- Feel the baby kick and react like it's the most amazing thing ever (because it is)\n"
+            "- Cook a meal she's been craving. Bonus: learn to cook it well enough to repeat.\n"
+            "- Start thinking about your parental leave and work logistics NOW\n"
+            "- Have the \"who's helping after the baby arrives\" conversation\n\n"
+            "## Real Talk\n\n"
+            "The partners who engage during pregnancy are the ones who hit the ground running as parents. "
+            "You don't need to be perfect. You need to be present, curious, and willing to learn. That's it.\n\n"
+            "*Partner encouragement — not professional advice.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_22",
+        "title": "Pregnancy Superfoods That Deserve a Cape",
+        "body": (
+            "## Nutrition That's Actually Exciting\n\n"
+            "\"Eat healthy\" is vague and boring. Let's talk about specific foods that are doing INCREDIBLE things "
+            "for you and your growing baby. These are the MVPs.\n\n"
+            "## The All-Stars\n\n"
+            "- **Sweet potatoes.** Loaded with beta-carotene, which your body converts to vitamin A. Your baby's eyes, skin, and immune system are fans.\n"
+            "- **Greek yogurt.** More protein than regular yogurt, plus calcium and probiotics. Your gut says thank you.\n"
+            "- **Lentils.** Folate, iron, protein, fiber — lentils are basically a prenatal vitamin in food form.\n"
+            "- **Eggs.** Choline! Critical for brain development. Most people don't get enough. Eat the whole egg — the yolk is where the magic is.\n"
+            "- **Salmon.** DHA omega-3 fatty acids for brain and eye development. Aim for 2-3 servings per week.\n"
+            "- **Spinach.** Iron, folate, calcium, fiber. Toss it in everything. Smoothies, omelets, pasta — it hides anywhere.\n"
+            "- **Berries.** Antioxidants, vitamin C, and hydration. Plus they taste like candy.\n\n"
+            "## Easy Ways to Eat Them\n\n"
+            "- Morning smoothie: Greek yogurt + spinach + berries + banana\n"
+            "- Lunch: Lentil soup with crusty bread (comfort food that's secretly powerful)\n"
+            "- Dinner: Baked salmon with sweet potato wedges\n"
+            "- Snack: Hard-boiled eggs with everything bagel seasoning\n\n"
+            "## The Real Talk\n\n"
+            "You don't need to eat perfectly every day. Hit these foods when you can, take your prenatal, and don't beat yourself up about the ice cream.\n\n"
+            "*General nutrition info — see your provider or a registered dietitian for personalized guidance.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "TRIMESTER_2",
+        "subStage": None,
+        "forPartner": 0,
+    },
+
+    # === TRIMESTER_3 (10 articles) ===
+    {
+        "id": "fun_preg_23",
+        "title": "Date Night Ideas When You're Too Exhausted to Leave the Couch",
+        "body": (
+            "## Romance, Horizontal Edition\n\n"
+            "You're huge, you're tired, and the idea of putting on real pants is offensive. "
+            "But your relationship still deserves attention. Enter: couch date nights.\n\n"
+            "## The Lineup\n\n"
+            "- **Documentary + discussion.** Watch something interesting and then actually talk about it. Pretend you're at a film festival. You're intellectuals now.\n"
+            "- **Takeout taste test.** Order from a place you've never tried. Rate everything. Be dramatic about it.\n"
+            "- **Baby name bracket.** March Madness style. Each pick a list, seed them, and compete. Gets heated in the best way.\n"
+            "- **Childhood photo show-and-tell.** Pull up old photos and share stories. Great for laughs AND predicting what the baby might look like.\n"
+            "- **Massage exchange.** 15 minutes each. Set a timer so it's actually fair. (Foot rubs are CURRENCY right now.)\n"
+            "- **Cook together (something easy).** Fancy grilled cheese? Homemade pizza? Keep the bar low and the fun high.\n"
+            "- **Board games or card games.** Competitive? Great. Not competitive? Also great.\n\n"
+            "## The No-Effort Options\n\n"
+            "- Binge a new series together (no phones allowed)\n"
+            "- Read side by side — old school and very cozy\n"
+            "- Simply talk. Like, actually talk. About hopes, fears, and baby dreams\n\n"
+            "## Why This Matters\n\n"
+            "Once the baby arrives, quality couple time becomes rare. Building the habit now "
+            "means you'll prioritize it later. Plus, these are the memories you'll look back on fondly.\n\n"
+            "*Zero medical content. Just love and snacks.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_24",
+        "title": "The Art of the Hospital Bag: What You Actually Need",
+        "body": (
+            "## Skip the Pinterest Lists, Here's the Real Deal\n\n"
+            "Hospital bag lists online have 87 items and suggest you bring a diffuser, a robe, and fairy lights. "
+            "Let's be real about what you'll actually use.\n\n"
+            "## The Must-Haves\n\n"
+            "- **ID, insurance card, and hospital paperwork.** Boring but essential.\n"
+            "- **Phone charger (LONG cord).** The outlet is never close enough. Get a 10-footer.\n"
+            "- **Comfy going-home outfit.** Think: what you wore at 6 months pregnant. You will NOT fit into pre-pregnancy clothes yet.\n"
+            "- **Toiletries.** Your own shampoo, toothbrush, and face wash. Hospital stuff is grim.\n"
+            "- **Nursing bra or comfortable bra.** Even if you're not sure about breastfeeding, your chest will need support.\n"
+            "- **Baby's going-home outfit.** One outfit. Not five options. One.\n"
+            "- **Car seat.** INSTALLED BEFORE YOU GO. Practice installing it now.\n"
+            "- **Snacks.** Labor is a marathon. Partners need fuel too. Granola bars, nuts, and electrolyte drinks.\n\n"
+            "## Nice to Have\n\n"
+            "- Your own pillow (hospital pillows are sad)\n"
+            "- A Bluetooth speaker for music\n"
+            "- Cozy socks with grip on the bottom\n"
+            "- A going-home outfit for your partner (they'll need to change too)\n\n"
+            "## Don't Bother With\n\n"
+            "- Books (you will not read)\n"
+            "- A full makeup bag (you won't care)\n"
+            "- Candles (fire hazard, they'll say no)\n"
+            "- 12 baby outfits (you're there for like 2 days)\n\n"
+            "*Practical packing list — ask your specific hospital what they provide.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_25",
+        "title": "Partner Challenge: The Empathy Belly Experiment",
+        "body": (
+            "## Walk a Mile in Her... Belly?\n\n"
+            "You've watched her grow a whole human. You've heard about the back pain, the bladder pressure, "
+            "the inability to tie shoes. But do you really GET it? Time to find out.\n\n"
+            "## The Challenge\n\n"
+            "Strap on a pregnancy simulation belly (or DIY one with a heavy backpack worn in front) and try to go "
+            "about your normal day. Bonus points for timing it at the third trimester size.\n\n"
+            "## Your Mission\n\n"
+            "- **Get off the couch without using your hands.** Go ahead. We'll wait.\n"
+            "- **Pick something up off the floor.** Bending is a strategy game now.\n"
+            "- **Put on socks and shoes.** This is where the real humility kicks in.\n"
+            "- **Try to get comfortable in bed.** Spoiler: you can't. Welcome to every night since month 6.\n"
+            "- **Walk around a grocery store for 30 minutes.** With weight on your bladder. Find a bathroom. Fast.\n"
+            "- **Sit at a desk for an hour.** Your back will have OPINIONS.\n\n"
+            "## The Point\n\n"
+            "This isn't about suffering or guilt. It's about understanding. When you've felt even a fraction "
+            "of what she's experiencing, your empathy and support become so much more genuine.\n\n"
+            "## After the Experiment\n\n"
+            "Take it off (lucky you — she can't). Then go tell her she's amazing. "
+            "Rub her feet. Handle dinner. You get it now.\n\n"
+            "*Fun partner activity — not a medical exercise.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_26",
+        "title": "Baby Shower Games That Aren't Terrible",
+        "body": (
+            "## Because Nobody Wants to Smell Melted Chocolate in Diapers\n\n"
+            "Baby shower games have a reputation for being cringy. But they don't have to be! "
+            "Here are ones that people will actually enjoy.\n\n"
+            "## The Actually Fun Games\n\n"
+            "- **Baby photo match.** Everyone brings a baby photo, and you guess who's who. Gets HILARIOUS.\n"
+            "- **Price is Right: Baby Edition.** Show baby products, guests guess the price. Stroller prices will shock everyone.\n"
+            "- **Diaper raffle.** Bring a pack of diapers = extra entry for a prize. Practical AND fun. You'll need every single one.\n"
+            "- **Onesie decorating station.** Fabric markers, plain onesies, let people go wild. You'll get some truly unhinged designs and it's glorious.\n"
+            "- **Baby predictions.** Guests write predictions: birth date, weight, hair color, first word. Seal them up and open after birth.\n"
+            "- **Don't say \"baby.\"** Everyone gets a pin. Say the word \"baby\" and someone steals your pin. It's ruthlessly competitive.\n"
+            "- **Two truths and a lie: Parent edition.** Host shares parenting facts, guests guess which is the lie.\n\n"
+            "## Pro Tips for Planning\n\n"
+            "- Keep games to 2-3 max. Nobody wants a game marathon.\n"
+            "- Have good prizes. Not dollar store candles — actual nice stuff.\n"
+            "- Make games optional. Some people just want to eat cake and chat.\n"
+            "- Consider co-ed games if it's a co-ed shower. Everyone should be included.\n\n"
+            "## The Real MVP\n\n"
+            "The best baby showers focus on celebrating the parents, not just the baby. Make it personal, keep it fun.\n\n"
+            "*Party planning tips — no medical advice here, just vibes!*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_27",
+        "title": "Third Trimester Sleep: A Comedy of Errors",
+        "body": (
+            "## When \"Sleeping for Two\" Becomes \"Sleeping for Zero\"\n\n"
+            "You'd think your body would let you rest before the big event. NOPE. "
+            "The third trimester has other plans. Here's your guide to the nightly adventure.\n\n"
+            "## The Nightly Lineup\n\n"
+            "- **10 PM:** Attempt to get into bed. This now requires strategy and possibly a running start.\n"
+            "- **10:15 PM:** Arrange the pillow fortress. Between the legs, under the bump, behind the back. You need approximately 7 pillows.\n"
+            "- **10:30 PM:** Finally comfortable. Don't. Move.\n"
+            "- **11 PM:** Need to pee. The fortress crumbles.\n"
+            "- **11:30 PM:** Rebuild the fortress. Baby starts doing parkour.\n"
+            "- **12 AM:** Heartburn arrives. Sit up. Eat a Tums. Try again.\n"
+            "- **1 AM:** Leg cramp! Gasp awake. Scare your partner.\n"
+            "- **2 AM:** Hip pain. Switch sides. This requires a 17-point turn.\n"
+            "- **3 AM:** Bathroom trip #2.\n"
+            "- **4 AM:** Finally asleep. Baby hiccups for 20 minutes.\n"
+            "- **6 AM:** \"Time to get up!\" WHO DESIGNED THIS.\n\n"
+            "## What Actually Helps\n\n"
+            "- A pregnancy pillow (the C or U shaped ones are game-changers)\n"
+            "- Magnesium before bed (check with your doctor) for cramps\n"
+            "- Elevating your upper body for heartburn\n"
+            "- Accepting that daytime naps are not optional — they're essential\n\n"
+            "## The Silver Lining\n\n"
+            "People say it's \"your body preparing you for newborn sleep.\" That's both helpful and deeply annoying.\n\n"
+            "*Humor and general tips — discuss persistent sleep issues with your provider.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_28",
+        "title": "Meal Prep Recipes That Don't Suck: Freezer Edition",
+        "body": (
+            "## Future You Will Be SO Grateful\n\n"
+            "In a few weeks, you'll have a newborn, zero energy, and the thought of cooking will seem laughable. "
+            "That's where Freezer You comes in — the hero you didn't know you needed.\n\n"
+            "## The Freezer MVPs\n\n"
+            "- **Burritos.** Make a giant batch, wrap individually in foil. Beans, cheese, rice, whatever you want. Microwave in 2 minutes.\n"
+            "- **Soups and stews.** Chicken noodle, chili, minestrone — they all freeze beautifully. Big batch, portion into containers.\n"
+            "- **Muffins.** Banana, blueberry, savory egg muffins — grab-and-go breakfasts that you can eat one-handed.\n"
+            "- **Pasta bake.** Assemble in a foil pan, freeze unbaked. Pop it in the oven when you need it.\n"
+            "- **Energy balls.** Oats, peanut butter, chocolate chips, honey. Roll, freeze, snack endlessly.\n"
+            "- **Marinated meats.** Chicken or pork in marinade, freeze in bags. Defrost and cook — dinner with zero effort.\n\n"
+            "## The System\n\n"
+            "- Label EVERYTHING with the name and date\n"
+            "- Make double of whatever you're already cooking — eat one, freeze one\n"
+            "- Invest in good freezer bags and containers\n"
+            "- Aim for 10-15 freezer meals. Sounds like a lot, but it's about 3-4 cooking sessions\n\n"
+            "## Enlist Help\n\n"
+            "Make it a prep party! Invite friends or family to help cook and pack. "
+            "Everyone brings ingredients, you batch cook together. Fun AND productive.\n\n"
+            "*Meal ideas for general inspiration — accommodate your dietary needs and preferences.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_29",
+        "title": "Your Baby's Final Prep: What Happens in the Last Weeks",
+        "body": (
+            "## The Home Stretch (Literally)\n\n"
+            "Your baby is basically fully cooked and just putting on the finishing touches. "
+            "Here's what's happening in those last dramatic weeks.\n\n"
+            "## Weeks 33-36: Getting Ready\n\n"
+            "- **Gaining about half a pound per week.** Your baby is bulking up like they're training for something. (They are.)\n"
+            "- **Lungs are maturing.** Producing surfactant, which helps them breathe air. Kind of important.\n"
+            "- **Bones are hardening.** Except the skull — those plates stay flexible for... well, you know why.\n"
+            "- **They're running out of room.** Less karate, more slow-motion rolls and stretches.\n\n"
+            "## Weeks 37-40: The Final Countdown\n\n"
+            "- **They \"drop\" (engage in your pelvis).** You can breathe again! But now walking feels... different.\n"
+            "- **Brain development is in overdrive.** The brain grows by a third in the last few weeks. Wild.\n"
+            "- **They're practicing breathing.** Inhaling and exhaling amniotic fluid. Rehearsal for the big debut.\n"
+            "- **Immune system is loading.** Getting antibodies from you to protect them in the early weeks.\n"
+            "- **Meconium is forming.** Their first poop is brewing. It's... an experience you'll never forget.\n\n"
+            "## Fun Size Facts\n\n"
+            "- At 36 weeks: about the size of a papaya\n"
+            "- At 38 weeks: a winter melon\n"
+            "- At 40 weeks: a small pumpkin. YOU GREW A PUMPKIN.\n\n"
+            "*Developmental info for fun — your OB tracks your baby's specific growth at each visit.*"
+        ),
+        "category": "BABY_DEVELOPMENT",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_30",
+        "title": "The Partner's Game Day Prep: Labor and Delivery Edition",
+        "body": (
+            "## Your Time to Shine Is Coming\n\n"
+            "Labor is her marathon, but you're the pit crew, the coach, and the emotional support human "
+            "all in one. Here's how to be ready when it's go time.\n\n"
+            "## Before the Big Day\n\n"
+            "- **Know the route to the hospital.** Time it. Have a backup route. Know where to park.\n"
+            "- **Have the bags PACKED and by the door.** Including YOUR bag. You'll be there too, remember.\n"
+            "- **Charge everything.** Phone, camera, portable charger. Low battery during labor is not the vibe.\n"
+            "- **Know her birth preferences.** Not just \"she has a plan\" — actually READ it. Know what she wants.\n"
+            "- **Learn some comfort techniques.** Counter-pressure on the lower back. Hip squeezes. Breathing together.\n\n"
+            "## During Labor\n\n"
+            "- **Be her advocate.** If she can't speak for herself, you speak up. Know her wishes.\n"
+            "- **Offer, don't push.** \"Want water?\" \"Want the ball?\" \"Want me to be quiet?\" Let her lead.\n"
+            "- **Stay calm.** Even if you're terrified. She needs your steady energy.\n"
+            "- **STAY OFF YOUR PHONE.** The group chat can wait. Be present.\n"
+            "- **Feed yourself.** You're no good to anyone if you pass out from low blood sugar.\n\n"
+            "## After Delivery\n\n"
+            "- Take photos. Not of the medical stuff (unless she asks). Of the first moments.\n"
+            "- Skin-to-skin for you too if possible. It's not just a mom thing.\n"
+            "- Handle the calls and texts so she can rest.\n"
+            "- Tell her she's incredible. Because she is.\n\n"
+            "*Supportive partner tips — take a childbirth class together for hands-on prep!*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_31",
+        "title": "Nesting: When You Reorganize the Entire House at 2 AM",
+        "body": (
+            "## The Urge Is STRONG\n\n"
+            "One day you're a normal person, the next you're alphabetizing your spice rack at midnight and "
+            "deep cleaning behind the refrigerator. Welcome to nesting — the irresistible, slightly unhinged "
+            "drive to prepare your home.\n\n"
+            "## Signs You're Nesting\n\n"
+            "- You've organized the baby's closet by size, color, AND season\n"
+            "- You've washed tiny clothes that won't be worn for months\n"
+            "- The freezer is full of labeled meals (okay, that one's actually smart)\n"
+            "- You've cleaned things you didn't know existed. The top of the fridge? Spotless.\n"
+            "- You've made your partner rearrange furniture three times in one weekend\n"
+            "- You bought organizational bins. So many bins.\n\n"
+            "## The Science\n\n"
+            "Nesting is real and biological! It's driven by hormonal changes that create an urge to prepare "
+            "a safe environment. Animals do it too — birds build nests, dogs dig dens, and you... reorganize the garage.\n\n"
+            "## Nesting Safely\n\n"
+            "- Don't climb ladders or lift heavy things (hard to hear, we know)\n"
+            "- Skip harsh chemical cleaners — use gentler alternatives\n"
+            "- Accept help. Your partner WANTS to move that dresser. Let them.\n"
+            "- Rest when you need to. The house doesn't need to be magazine-perfect.\n\n"
+            "## The Truth\n\n"
+            "Your baby will not care if the closet is organized. But if organizing it makes YOU feel ready and "
+            "calm? Nest away, you beautiful weirdo.\n\n"
+            "*Nesting is normal — but sudden bursts of energy near your due date might be a sign labor is approaching!*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_32",
+        "title": "The Last-Minute Pregnancy Bucket List",
+        "body": (
+            "## Things to Do Before You're Outnumbered\n\n"
+            "The baby is almost here, and life is about to change forever (in the best way). "
+            "But before it does, here are some things worth savoring.\n\n"
+            "## For You\n\n"
+            "- **Take a really long, uninterrupted shower.** Appreciate it. This is luxury now.\n"
+            "- **Sleep in.** On a Saturday. With no alarm. Soak it in like a sponge.\n"
+            "- **See a movie in a theater.** It'll be a while before you do this again without a babysitter.\n"
+            "- **Take a bump photo.** Even if you feel huge and over it. Future you will treasure it.\n"
+            "- **Write a letter to your baby.** What you're feeling, what you hope for them. Open it on their first birthday.\n\n"
+            "## For You Two\n\n"
+            "- **Have a fancy dinner.** At a restaurant. With cloth napkins. No high chairs in sight.\n"
+            "- **Take a babymoon.** Even if it's a staycation at a local hotel. Enjoy the quiet.\n"
+            "- **Have a deep conversation about your childhoods.** What you want to keep, what you want to change.\n"
+            "- **Binge an entire TV series.** Uninterrupted. This power will soon leave you.\n"
+            "- **Cook something complicated together.** You won't have the time or energy for a while.\n\n"
+            "## The Mindset\n\n"
+            "This isn't about mourning your pre-baby life. It's about honoring this chapter before the "
+            "next (incredible) one begins. You're not losing freedom — you're gaining a whole new person to love.\n\n"
+            "*Just fun ideas — enjoy these final weeks!*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "TRIMESTER_3",
+        "subStage": None,
+        "forPartner": 0,
+    },
+
+    # === POSTPARTUM (8 articles) ===
+    {
+        "id": "fun_preg_33",
+        "title": "Why Your Brain Feels Like Mush (And When It Comes Back)",
+        "body": (
+            "## Welcome to Mom Brain\n\n"
+            "You put your phone in the fridge. You forgot the word for \"table.\" You walked into a room and "
+            "have absolutely no idea why. Congratulations — you have postpartum brain fog, and it's completely normal.\n\n"
+            "## Why Is This Happening?\n\n"
+            "- **Sleep deprivation.** Your brain literally cannot function properly on fragmented sleep. This is the #1 culprit.\n"
+            "- **Hormonal shifts.** After delivery, estrogen and progesterone plummet. Your brain is recalibrating.\n"
+            "- **Your brain is literally restructuring.** Studies show the maternal brain physically changes to prioritize baby care. You're not losing brain cells — they're being REDEPLOYED.\n"
+            "- **Cognitive overload.** You're tracking feeds, diapers, sleep, appointments, and a tiny human's every need. Your RAM is maxed out.\n\n"
+            "## When Does It Get Better?\n\n"
+            "- Most parents notice improvement by 6-9 months postpartum\n"
+            "- As sleep improves, so does brain function\n"
+            "- It doesn't disappear overnight but gradually lifts like a fog\n\n"
+            "## Survival Strategies\n\n"
+            "- **Write EVERYTHING down.** Lists, notes app, sticky notes. Externalize your memory.\n"
+            "- **Simplify decisions.** Same breakfast every day? Great. One less thing to think about.\n"
+            "- **Be kind to yourself.** You're running the most demanding job on earth with minimal sleep. Cut yourself major slack.\n"
+            "- **Ask for help.** Delegate tasks. Accept offers. You don't get extra points for doing it all alone.\n\n"
+            "*If brain fog is severe or accompanied by persistent sadness or anxiety, talk to your doctor about postpartum mood disorders.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_34",
+        "title": "Newborn Sounds Decoded: A Field Guide",
+        "body": (
+            "## Your Baby Is Trying to Talk to You\n\n"
+            "Newborns are NOISY. And every sound triggers the same parental response: panic. "
+            "Let's decode the soundtrack of your new life.\n\n"
+            "## The Sound Library\n\n"
+            "- **The \"Neh\" sound:** Hungry. This sound is made when the tongue hits the roof of the mouth (sucking reflex). Translation: FEED ME.\n"
+            "- **Grunting:** Usually means they're working on a poop. It's a full-body effort at this age. Respect the process.\n"
+            "- **Squeaking:** Newborn nasal passages are tiny. They squeak. It's alarming and adorable.\n"
+            "- **The pterodactyl screech:** Just... testing their vocal range. No emergency. They're just discovering they can make noise.\n"
+            "- **Snoring/snorting:** Normal! Their airways are small. If they're eating and breathing fine, it's just newborn acoustics.\n"
+            "- **The \"Heh\" sound:** Discomfort. Might be too hot, too cold, or need a position change.\n"
+            "- **Rhythmic crying that escalates:** Overtired. They need help winding down. Swaddle, shush, swing.\n"
+            "- **The silent open-mouth face:** The calm before the storm. You have approximately 0.5 seconds.\n\n"
+            "## When to Worry\n\n"
+            "- Persistent grunting with every breath (not just during pooping)\n"
+            "- Blue lips or fingertips\n"
+            "- Breathing that looks labored or too fast\n"
+            "- High-pitched, inconsolable screaming that's unusual for them\n\n"
+            "## The Good News\n\n"
+            "Within a few weeks, you'll become fluent in your baby's sounds. You'll know the hungry cry from the "
+            "tired cry from the \"I just want to be held\" cry. It's a superpower you didn't know you'd develop.\n\n"
+            "*General info — always call your pediatrician if something feels off. Parent instinct is real.*"
+        ),
+        "category": "BABY_DEVELOPMENT",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_35",
+        "title": "The Fourth Trimester: What Nobody Warned You About",
+        "body": (
+            "## You Had the Baby. Now What?!\n\n"
+            "Everyone focuses on pregnancy and delivery, but the postpartum period is its own wild ride. "
+            "Here's the unfiltered truth about the \"fourth trimester.\"\n\n"
+            "## The Body Stuff\n\n"
+            "- **You'll still look pregnant for a while.** Your uterus takes 6-8 weeks to shrink back. This is normal.\n"
+            "- **The bleeding is... a lot.** Nobody prepares you for postpartum bleeding. Stock up on heavy-duty pads.\n"
+            "- **Night sweats.** Your body is dumping extra fluid. You'll wake up drenched. Lovely.\n"
+            "- **Everything is sore.** Whether you had a vaginal delivery or C-section, your body has been through it. Be gentle with yourself.\n"
+            "- **Hair loss around 3-4 months.** It's temporary, but seeing clumps in the shower is startling.\n\n"
+            "## The Emotional Stuff\n\n"
+            "- **\"Baby blues\" are common.** Days 3-5 are often the hardest emotionally. Hormones are crashing.\n"
+            "- **You might not feel an instant bond.** That's okay. Love can grow gradually.\n"
+            "- **You might grieve your old life.** Also okay. Both things can be true: loving your baby AND missing your freedom.\n"
+            "- **Rage is an underrecognized postpartum symptom.** If you're feeling unusually angry, talk to your doctor.\n\n"
+            "## What Actually Helps\n\n"
+            "- Accept EVERY offer of help. Someone wants to bring food? YES.\n"
+            "- Lower your standards to the floor. A fed baby and a surviving parent = success.\n"
+            "- Stay connected to your partner, even when you're both zombies\n"
+            "- Fresh air. Even 5 minutes outside resets something in your brain.\n\n"
+            "*The fourth trimester is temporary. If you're struggling, reach out to your healthcare provider. You deserve support.*"
+        ),
+        "category": "MILESTONES_PRACTICAL",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_36",
+        "title": "Postpartum Partner Guide: How to Actually Help (Not Just Ask)",
+        "body": (
+            "## Stop Asking \"What Can I Do?\" and Start Doing\n\n"
+            "Your partner just grew and delivered a human. She's recovering, sleep-deprived, and possibly "
+            "touched-out. Here's how to be the partner she needs right now.\n\n"
+            "## Just Do These Things\n\n"
+            "- **Handle all meals.** Cook, order, or accept food from others. She should not be thinking about dinner.\n"
+            "- **Do the dishes and laundry.** Don't wait to be asked. Just do them. Continuously.\n"
+            "- **Manage visitors.** Be the gatekeeper. \"We'd love to see you Thursday at 2 for one hour.\" Set limits.\n"
+            "- **Bring her water and snacks.** Constantly. Especially if she's breastfeeding — the thirst is INSANE.\n"
+            "- **Handle nighttime diaper changes.** If she's doing the feeding, you're doing the changing. Fair is fair.\n"
+            "- **Take the baby for a walk.** Solo. Give her actual alone time. Even 30 minutes is gold.\n\n"
+            "## Things That Sound Helpful But Aren't\n\n"
+            "- \"Just tell me what to do\" — she doesn't want to be your manager AND a new mom\n"
+            "- \"I'll watch the baby\" — it's not babysitting when it's YOUR child. It's parenting.\n"
+            "- \"You should sleep when the baby sleeps\" — unless you're doing everything else, this is impossible advice\n\n"
+            "## The Emotional Stuff\n\n"
+            "- Check in on her mental health. Directly. \"How are you really feeling?\"\n"
+            "- Don't compare her to other moms or your own mother\n"
+            "- Validate her feelings even if you don't fully understand them\n"
+            "- She might cry. A lot. Just hold her.\n\n"
+            "*Being a great postpartum partner sets the tone for your entire parenting journey. Show up.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_37",
+        "title": "Postpartum Meals That Fuel Recovery (One-Handed)",
+        "body": (
+            "## Eating When You're Holding a Baby 24/7\n\n"
+            "The postpartum nutrition advice is simple: eat well, stay hydrated, fuel your recovery. "
+            "The reality: you have one free hand, zero energy to cook, and whatever window of time the baby allows. "
+            "Here's how to actually eat.\n\n"
+            "## The One-Handed Hall of Fame\n\n"
+            "- **Wraps and burritos.** Portable, no utensils needed, endlessly customizable. The perfect postpartum food.\n"
+            "- **Energy balls.** Oats, nut butter, seeds, dark chocolate. Make a batch (or have someone make them for you).\n"
+            "- **Trail mix.** Nuts, dried fruit, dark chocolate. Keep bowls of it everywhere.\n"
+            "- **Muffins.** Savory or sweet, they're grab-and-go nutrition.\n"
+            "- **Smoothies (in a tumbler with a straw).** Blend up fruit, yogurt, spinach, protein powder. Sip while nursing.\n"
+            "- **Hard-boiled eggs.** Batch-prep a dozen. Protein you can eat in 30 seconds.\n"
+            "- **Cheese and crackers.** Always available, always satisfying.\n\n"
+            "## Recovery-Boosting Foods\n\n"
+            "- **Iron-rich foods:** Red meat, lentils, spinach (you lost blood, rebuild it)\n"
+            "- **Omega-3s:** Salmon, walnuts (brain health for you AND baby if breastfeeding)\n"
+            "- **Fiber:** Oatmeal, fruits, veggies (postpartum digestion can be... challenging)\n"
+            "- **Water, water, water:** Keep a big bottle with you at all times\n\n"
+            "## The Permission Slip\n\n"
+            "Frozen pizza counts as dinner. Cereal is a meal. You are keeping yourself and possibly another human alive. "
+            "That is ENOUGH.\n\n"
+            "*General nutrition tips — see your provider for personalized postpartum dietary needs.*"
+        ),
+        "category": "NUTRITION",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_38",
+        "title": "Newborn Milestones: The Tiny Wins That Are Actually Huge",
+        "body": (
+            "## Celebrating the Small (But Mighty) Stuff\n\n"
+            "In the newborn phase, milestones aren't walking and talking — they're the tiny, wonderful moments "
+            "that prove your baby is growing and thriving.\n\n"
+            "## The First Few Weeks\n\n"
+            "- **First real eye contact.** When they actually LOOK at you and you know they see YOU. Get ready to cry.\n"
+            "- **Regaining birth weight.** Babies lose weight initially, then gain it back. When the pediatrician says they're back up — victory!\n"
+            "- **First social smile (around 6-8 weeks).** Not gas. An actual smile AT you. The dopamine hit is unreal.\n"
+            "- **Holding their head up briefly.** During tummy time, that wobbly little head lift is Olympic-level effort.\n"
+            "- **Tracking objects with their eyes.** They're following your face! Their brain is WORKING!\n\n"
+            "## The Parent Milestones (Equally Important)\n\n"
+            "- **First successful outing.** Getting everyone fed, dressed, and out the door is a TRIUMPH.\n"
+            "- **First real shower.** Not a 90-second rinse. An actual shower. With conditioner.\n"
+            "- **First time baby sleeps 3+ hours straight.** You'll wake up and panic. Then rejoice.\n"
+            "- **First belly laugh (yours).** When you genuinely laugh for the first time postpartum, it feels like the sun coming out.\n"
+            "- **First time you feel like \"you\" again.** It comes. It might take a while, but it comes.\n\n"
+            "## The Reminder\n\n"
+            "Every baby develops at their own pace. Comparison is the thief of joy — especially in the newborn phase. "
+            "Your baby is exactly where they need to be.\n\n"
+            "*Fun milestone tracking — your pediatrician monitors developmental progress at well-visits.*"
+        ),
+        "category": "BABY_DEVELOPMENT",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+    {
+        "id": "fun_preg_39",
+        "title": "The New Dad Survival Guide: You've Got This",
+        "body": (
+            "## Welcome to Fatherhood. It's Wild in Here.\n\n"
+            "The baby is here, you're a dad, and nobody gave you a manual. "
+            "Here's the crash course they should have handed you at the hospital.\n\n"
+            "## The First Week Reality Check\n\n"
+            "- **You will feel clueless.** That's normal. Nobody is born knowing how to swaddle.\n"
+            "- **The baby won't break.** They're tougher than they look. Support the head, and you're doing great.\n"
+            "- **Crying is communication, not failure.** The baby cries. That's literally their only tool. It doesn't mean you're doing it wrong.\n"
+            "- **Your partner might seem like a different person.** Hormones, pain, exhaustion — she's going through A LOT. Be patient.\n\n"
+            "## Skills to Learn ASAP\n\n"
+            "- **The swaddle.** Watch a YouTube video. Practice on a stuffed animal. Master the burrito.\n"
+            "- **The diaper change.** Speed matters. Have everything ready BEFORE you open the diaper. Trust us.\n"
+            "- **The bounce/sway.** Hold baby close, gentle bounce, slight sway. You'll find your rhythm.\n"
+            "- **Skin-to-skin.** Take off your shirt, put baby on your chest. Bonding magic.\n\n"
+            "## Don't Forget About You\n\n"
+            "- Your feelings matter too. Becoming a parent is overwhelming for everyone.\n"
+            "- Postpartum depression affects dads too — about 10% of new fathers. If you're struggling, speak up.\n"
+            "- Accept that you'll make mistakes. That's not failure — that's learning.\n"
+            "- Connect with other new dads. You're not alone in this.\n\n"
+            "*Supportive guidance — talk to your doctor if you're experiencing persistent anxiety or depression.*"
+        ),
+        "category": "PARTNER_GUIDE",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 1,
+    },
+    {
+        "id": "fun_preg_40",
+        "title": "Finding Yourself Again After Baby: A Gentle Guide",
+        "body": (
+            "## You're Still in There\n\n"
+            "Somewhere between the 3 AM feeds, the identity shift, and the constant demands of a tiny human, "
+            "you might have lost track of yourself. That's normal. And it's temporary.\n\n"
+            "## The Identity Shift Is Real\n\n"
+            "- You went from \"person\" to \"parent\" overnight. That's a seismic change.\n"
+            "- It's okay to mourn parts of your old life while loving your new one.\n"
+            "- Feeling \"lost\" doesn't mean you're ungrateful. Both feelings can coexist.\n"
+            "- Every new parent goes through this. You're not broken — you're adjusting.\n\n"
+            "## Small Steps Back to You\n\n"
+            "- **Do ONE thing for yourself daily.** Coffee alone. A walk. A podcast. Fifteen minutes that are YOURS.\n"
+            "- **Move your body.** Not to \"bounce back\" — to feel like yourself again. Whatever movement you enjoy.\n"
+            "- **Stay connected to friends.** Even a text thread keeps you tethered to your non-parent identity.\n"
+            "- **Revisit a hobby.** Even briefly. Draw, read, game, garden — whatever lit you up before.\n"
+            "- **Get dressed.** Not every day. But sometimes, putting on real clothes shifts your mindset.\n\n"
+            "## What to Let Go Of\n\n"
+            "- The idea that you should \"have it together\" by now\n"
+            "- Comparing yourself to social media parents (it's all curated)\n"
+            "- Guilt about wanting time alone\n"
+            "- The pressure to enjoy every moment (some moments are just hard)\n\n"
+            "## The Promise\n\n"
+            "You won't go back to who you were before — you'll become someone even better. "
+            "A version of yourself who knows what they're capable of. Because what you're doing right now? "
+            "It's the hardest, most important thing you'll ever do.\n\n"
+            "*If feelings of disconnection persist or deepen, please reach out to a mental health professional. You deserve support.*"
+        ),
+        "category": "MENTAL_HEALTH",
+        "stage": "POSTPARTUM",
+        "subStage": None,
+        "forPartner": 0,
+    },
+]
+
+# Validate
+assert len(articles) == 40, f"Expected 40 articles, got {len(articles)}"
+partner_count = sum(1 for a in articles if a["forPartner"] == 1)
+assert partner_count == 8, f"Expected 8 forPartner articles, got {partner_count}"
+
+# Check stage distribution
+from collections import Counter
+stages = Counter(a["stage"] for a in articles)
+print("Stage distribution:", dict(stages))
+print(f"Total articles: {len(articles)}")
+print(f"forPartner=1 count: {partner_count}")
+
+# Check categories
+cats = Counter(a["category"] for a in articles)
+print("Category distribution:", dict(cats))
+
+# Check IDs are unique
+ids = [a["id"] for a in articles]
+assert len(ids) == len(set(ids)), "Duplicate IDs found!"
+
+# Write JSON
+output_path = "/Users/dparsons/projects/bumptogether/src/data/fun_pregnancy.json"
+with open(output_path, "w") as f:
+    json.dump(articles, f, indent=2)
+
+print(f"\nWritten to {output_path}")
+print("Done!")
