@@ -14,14 +14,32 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.dparsons.bumptogether"
+      "bundleIdentifier": "com.dparsons.bumptogether",
+      "buildNumber": "1",
+      "infoPlist": {
+        "CFBundleDisplayName": "BumpTogether",
+        "NSHumanReadableCopyright": "2026 BumpTogether"
+      }
+    },
+    "android": {
+      "package": "com.dparsons.bumptogether",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d9488"
+      }
     },
     "plugins": [
       "expo-sqlite",
-      "expo-asset"
-    ],
-    "android": {
-      "package": "com.dparsons.bumptogether"
-    }
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#0d9488",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200
+        }
+      ]
+    ]
   }
 }

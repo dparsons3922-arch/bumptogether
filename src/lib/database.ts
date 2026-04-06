@@ -1,5 +1,16 @@
 import * as SQLite from "expo-sqlite";
 
+const PROFILE_COLUMNS = new Set([
+  "partner1Name",
+  "partner2Name",
+  "carryingPartner",
+  "dueDate",
+  "birthDate",
+  "childName",
+  "stage",
+  "onboarded",
+]);
+
 let db: SQLite.SQLiteDatabase;
 
 export async function getDb() {
@@ -47,7 +58,8 @@ export async function getProfile() {
 
 export async function updateProfile(data: Record<string, any>) {
   const d = await getDb();
-  const keys = Object.keys(data);
+  const keys = Object.keys(data).filter((k) => PROFILE_COLUMNS.has(k));
+  if (keys.length === 0) return;
   const sets = keys.map((k) => `${k} = ?`).join(", ");
   const vals = keys.map((k) => data[k]);
   await d.runAsync(`UPDATE profile SET ${sets} WHERE id = 1`, vals);
@@ -55,7 +67,10 @@ export async function updateProfile(data: Record<string, any>) {
 
 export async function isArticleRead(articleId: string) {
   const d = await getDb();
-  const r = await d.getFirstAsync<any>("SELECT 1 FROM article_reads WHERE articleId = ?", [articleId]);
+  const r = await d.getFirstAsync<any>(
+    "SELECT 1 FROM article_reads WHERE articleId = ?",
+    [articleId]
+  );
   return !!r;
 }
 
@@ -78,7 +93,10 @@ export async function getReadArticleIds(): Promise<Set<string>> {
 
 export async function isBookmarked(articleId: string) {
   const d = await getDb();
-  const r = await d.getFirstAsync<any>("SELECT 1 FROM bookmarks WHERE articleId = ?", [articleId]);
+  const r = await d.getFirstAsync<any>(
+    "SELECT 1 FROM bookmarks WHERE articleId = ?",
+    [articleId]
+  );
   return !!r;
 }
 
@@ -101,13 +119,17 @@ export async function getBookmarkedIds(): Promise<Set<string>> {
 
 export async function getBookmarkedArticleIds(): Promise<string[]> {
   const d = await getDb();
-  const rows = await d.getAllAsync<any>("SELECT articleId FROM bookmarks ORDER BY createdAt DESC");
+  const rows = await d.getAllAsync<any>(
+    "SELECT articleId FROM bookmarks ORDER BY createdAt DESC"
+  );
   return rows.map((r: any) => r.articleId);
 }
 
 export async function getMilestones(): Promise<Record<string, string | null>> {
   const d = await getDb();
-  const rows = await d.getAllAsync<any>("SELECT milestoneKey, completedAt FROM milestones");
+  const rows = await d.getAllAsync<any>(
+    "SELECT milestoneKey, completedAt FROM milestones"
+  );
   const map: Record<string, string | null> = {};
   for (const r of rows) map[r.milestoneKey] = r.completedAt;
   return map;
@@ -115,17 +137,28 @@ export async function getMilestones(): Promise<Record<string, string | null>> {
 
 export async function toggleMilestone(key: string, label: string) {
   const d = await getDb();
-  const existing = await d.getFirstAsync<any>("SELECT completedAt FROM milestones WHERE milestoneKey = ?", [key]);
+  const existing = await d.getFirstAsync<any>(
+    "SELECT completedAt FROM milestones WHERE milestoneKey = ?",
+    [key]
+  );
   if (existing?.completedAt) {
-    await d.runAsync("UPDATE milestones SET completedAt = NULL WHERE milestoneKey = ?", [key]);
+    await d.runAsync(
+      "UPDATE milestones SET completedAt = NULL WHERE milestoneKey = ?",
+      [key]
+    );
     return null;
   }
   const now = new Date().toISOString().split("T")[0];
-  await d.runAsync("INSERT OR REPLACE INTO milestones (milestoneKey, label, completedAt) VALUES (?, ?, ?)", [key, label, now]);
+  await d.runAsync(
+    "INSERT OR REPLACE INTO milestones (milestoneKey, label, completedAt) VALUES (?, ?, ?)",
+    [key, label, now]
+  );
   return now;
 }
 
 export async function deleteAllData() {
   const d = await getDb();
-  await d.execAsync("DELETE FROM article_reads; DELETE FROM bookmarks; DELETE FROM milestones; UPDATE profile SET partner1Name=NULL, partner2Name=NULL, carryingPartner=NULL, dueDate=NULL, birthDate=NULL, childName=NULL, stage='TTC', onboarded=0 WHERE id=1;");
+  await d.execAsync(
+    "DELETE FROM article_reads; DELETE FROM bookmarks; DELETE FROM milestones; UPDATE profile SET partner1Name=NULL, partner2Name=NULL, carryingPartner=NULL, dueDate=NULL, birthDate=NULL, childName=NULL, stage='TTC', onboarded=0 WHERE id=1;"
+  );
 }

@@ -1,4 +1,6 @@
 import rawArticles from "../data/articles.json";
+import funPregnancy from "../data/fun_pregnancy.json";
+import funBaby from "../data/fun_baby.json";
 
 export type Article = {
   id: string;
@@ -10,7 +12,11 @@ export type Article = {
   forPartner: number;
 };
 
-const articles: Article[] = rawArticles as Article[];
+const articles: Article[] = [
+  ...(rawArticles as Article[]),
+  ...(funPregnancy as Article[]),
+  ...(funBaby as Article[]),
+];
 
 export function getArticlesByStageAndCategory(stage: string, category: string): Article[] {
   return articles.filter((a) => a.stage === stage && a.category === category);

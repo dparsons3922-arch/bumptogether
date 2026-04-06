@@ -5,12 +5,21 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  Share,
 } from "react-native";
 import { useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import * as Haptics from "expo-haptics";
 import { CATEGORIES, STAGES, COLORS } from "../lib/constants";
-import { isArticleRead, toggleArticleRead, isBookmarked, toggleBookmark } from "../lib/database";
+import {
+  isArticleRead,
+  toggleArticleRead,
+  isBookmarked,
+  toggleBookmark,
+} from "../lib/database";
 import { getArticleById } from "../lib/articles";
 import type { Article } from "../lib/articles";
+import type { RootStackScreenProps } from "../lib/types";
 
 function renderMarkdown(body: string): React.ReactNode[] {
   const lines = body.split("\n");
@@ -19,36 +28,30 @@ function renderMarkdown(body: string): React.ReactNode[] {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Heading: ## text
     if (line.startsWith("## ")) {
-      const text = line.slice(3);
       elements.push(
         <Text key={i} style={ms.heading}>
-          {renderInline(text)}
+          {renderInline(line.slice(3))}
         </Text>
       );
       continue;
     }
 
-    // Bullet: - text
     if (line.startsWith("- ")) {
-      const text = line.slice(2);
       elements.push(
         <View key={i} style={ms.bulletRow}>
           <Text style={ms.bullet}>{"\u2022"}</Text>
-          <Text style={ms.bulletText}>{renderInline(text)}</Text>
+          <Text style={ms.bulletText}>{renderInline(line.slice(2))}</Text>
         </View>
       );
       continue;
     }
 
-    // Empty line = spacing
     if (line.trim() === "") {
       elements.push(<View key={i} style={ms.spacer} />);
       continue;
     }
 
-    // Regular paragraph
     elements.push(
       <Text key={i} style={ms.paragraph}>
         {renderInline(line)}
@@ -99,7 +102,7 @@ const ms = StyleSheet.create({
   },
   bullet: {
     fontSize: 15,
-    color: COLORS.gray600,
+    color: COLORS.teal,
     marginRight: 8,
     lineHeight: 22,
   },
@@ -112,7 +115,7 @@ const ms = StyleSheet.create({
   paragraph: {
     fontSize: 15,
     color: COLORS.gray700,
-    lineHeight: 22,
+    lineHeight: 23,
     marginBottom: 4,
   },
   bold: {
@@ -124,8 +127,9 @@ const ms = StyleSheet.create({
 });
 
 export default function ArticleScreen() {
-  const route = useRoute<any>();
-  const navigation = useNavigation<any>();
+  const route = useRoute<RootStackScreenProps<"Article">["route"]>();
+  const navigation = useNavigation<RootStackScreenProps<"Article">["navigation"]>();
+  const insets = useSafeAreaInsets();
   const { articleId } = route.params;
 
   const [article, setArticle] = useState<Article | undefined>(undefined);
@@ -157,13 +161,22 @@ export default function ArticleScreen() {
   );
 
   async function handleToggleRead() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const nowRead = await toggleArticleRead(articleId);
     setRead(nowRead);
   }
 
   async function handleToggleSave() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     const nowSaved = await toggleBookmark(articleId);
     setSaved(nowSaved);
+  }
+
+  async function handleShare() {
+    if (!article) return;
+    await Share.share({
+      message: `Check out this article from BumpTogether: "${article.title}"`,
+    });
   }
 
   if (!article) {
@@ -178,10 +191,20 @@ export default function ArticleScreen() {
   const stage = STAGES.find((st) => st.key === article.stage);
 
   return (
-    <ScrollView style={s.container} contentContainerStyle={s.content}>
+    <ScrollView
+      style={s.container}
+      contentContainerStyle={[
+        s.content,
+        { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 40 },
+      ]}
+    >
       {/* Back button */}
-      <TouchableOpacity onPress={() => navigation.goBack()} style={s.backBtn}>
-        <Text style={s.backArrow}>{"<"} Back</Text>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={s.backBtn}
+        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+      >
+        <Text style={s.backArrow}>{"‹"} Back</Text>
       </TouchableOpacity>
 
       {/* Tag pills */}
@@ -213,19 +236,29 @@ export default function ArticleScreen() {
         <TouchableOpacity
           style={[s.actionBtn, read && s.actionBtnActive]}
           onPress={handleToggleRead}
+          activeOpacity={0.7}
         >
           <Text style={[s.actionText, read && s.actionTextActive]}>
-            {read ? "Marked as Read" : "Mark as Read"}
+            {read ? "Read" : "Mark Read"}
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[s.actionBtn, saved && s.actionBtnActive]}
           onPress={handleToggleSave}
+          activeOpacity={0.7}
         >
           <Text style={[s.actionText, saved && s.actionTextActive]}>
             {saved ? "Saved" : "Save"}
           </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={s.actionBtn}
+          onPress={handleShare}
+          activeOpacity={0.7}
+        >
+          <Text style={s.actionText}>Share</Text>
         </TouchableOpacity>
       </View>
 
@@ -235,9 +268,9 @@ export default function ArticleScreen() {
       {/* Disclaimer */}
       <View style={s.disclaimerBox}>
         <Text style={s.disclaimerText}>
-          This content is for informational purposes only and is not a substitute for
-          professional medical advice, diagnosis, or treatment. Always consult your
-          healthcare provider with questions about your health or pregnancy.
+          This content is for informational purposes only and is not a substitute
+          for professional medical advice, diagnosis, or treatment. Always consult
+          your healthcare provider with questions about your health or pregnancy.
         </Text>
       </View>
     </ScrollView>
@@ -251,8 +284,6 @@ const s = StyleSheet.create({
   },
   content: {
     padding: 16,
-    paddingTop: 56,
-    paddingBottom: 40,
   },
   loading: {
     fontSize: 16,
@@ -263,9 +294,10 @@ const s = StyleSheet.create({
   backBtn: {
     paddingVertical: 8,
     marginBottom: 8,
+    alignSelf: "flex-start",
   },
   backArrow: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "600",
     color: COLORS.teal,
   },

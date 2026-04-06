@@ -1,14 +1,24 @@
 import React from "react";
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { CATEGORIES, COLORS } from "../lib/constants";
+import type { TabScreenProps } from "../lib/types";
 
 export default function TopicsScreen() {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<TabScreenProps<"Topics">["navigation"]>();
+  const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView style={s.container} contentContainerStyle={s.content}>
+    <ScrollView
+      style={s.container}
+      contentContainerStyle={[
+        s.content,
+        { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 32 },
+      ]}
+    >
       <Text style={s.heading}>Topics</Text>
+      <Text style={s.subheading}>Explore articles by category</Text>
       <View style={s.grid}>
         {CATEGORIES.map((cat) => (
           <TouchableOpacity
@@ -16,7 +26,7 @@ export default function TopicsScreen() {
             style={s.card}
             activeOpacity={0.7}
             onPress={() =>
-              navigation.navigate("CategoryArticles", {
+              navigation.navigate("CategoryArticles" as any, {
                 categoryKey: cat.key,
                 categoryLabel: cat.label,
                 categoryEmoji: cat.emoji,
@@ -40,14 +50,18 @@ const s = StyleSheet.create({
   },
   content: {
     padding: 16,
-    paddingBottom: 32,
   },
   heading: {
     fontSize: 28,
     fontWeight: "700",
     color: COLORS.gray800,
-    marginBottom: 16,
+    marginBottom: 4,
     marginTop: 8,
+  },
+  subheading: {
+    fontSize: 14,
+    color: COLORS.gray500,
+    marginBottom: 20,
   },
   grid: {
     flexDirection: "row",

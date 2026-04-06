@@ -8,13 +8,16 @@ import {
   FlatList,
 } from "react-native";
 import { useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { STAGES, COLORS } from "../lib/constants";
 import { getProfile, getReadArticleIds, getBookmarkedIds } from "../lib/database";
 import { getArticlesByStageAndCategory, Article } from "../lib/articles";
+import type { RootStackScreenProps } from "../lib/types";
 
 export default function CategoryArticlesScreen() {
-  const route = useRoute<any>();
-  const navigation = useNavigation<any>();
+  const route = useRoute<RootStackScreenProps<"CategoryArticles">["route"]>();
+  const navigation = useNavigation<RootStackScreenProps<"CategoryArticles">["navigation"]>();
+  const insets = useSafeAreaInsets();
   const { categoryKey, categoryLabel, categoryEmoji } = route.params;
 
   const [selectedStage, setSelectedStage] = useState<string>("");
@@ -80,7 +83,7 @@ export default function CategoryArticlesScreen() {
             )}
           </View>
         </View>
-        <Text style={s.chevron}>{">"}</Text>
+        <Text style={s.chevron}>{"›"}</Text>
       </TouchableOpacity>
     );
   }
@@ -88,11 +91,15 @@ export default function CategoryArticlesScreen() {
   return (
     <View style={s.container}>
       {/* Header */}
-      <View style={s.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={s.backBtn}>
-          <Text style={s.backArrow}>{"<"}</Text>
+      <View style={[s.header, { paddingTop: insets.top + 8 }]}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={s.backBtn}
+          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+        >
+          <Text style={s.backArrow}>{"‹"}</Text>
         </TouchableOpacity>
-        <Text style={s.headerTitle}>
+        <Text style={s.headerTitle} numberOfLines={1}>
           {categoryEmoji} {categoryLabel}
         </Text>
       </View>
@@ -111,6 +118,7 @@ export default function CategoryArticlesScreen() {
               key={stage.key}
               style={[s.pill, isSelected ? s.pillSelected : s.pillUnselected]}
               onPress={() => handleStagePress(stage.key)}
+              activeOpacity={0.7}
             >
               <Text
                 style={[
@@ -130,9 +138,13 @@ export default function CategoryArticlesScreen() {
         data={articles}
         keyExtractor={(item) => item.id}
         renderItem={renderArticle}
-        contentContainerStyle={s.listContent}
+        contentContainerStyle={[
+          s.listContent,
+          { paddingBottom: insets.bottom + 32 },
+        ]}
         ListEmptyComponent={
           <View style={s.emptyContainer}>
+            <Text style={s.emptyEmoji}>📄</Text>
             <Text style={s.emptyText}>No articles for this stage yet.</Text>
           </View>
         }
@@ -150,17 +162,17 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 56,
     paddingBottom: 8,
   },
   backBtn: {
-    paddingRight: 12,
+    paddingRight: 8,
     paddingVertical: 4,
   },
   backArrow: {
-    fontSize: 22,
-    fontWeight: "600",
+    fontSize: 32,
+    fontWeight: "400",
     color: COLORS.teal,
+    lineHeight: 32,
   },
   headerTitle: {
     fontSize: 20,
@@ -202,7 +214,6 @@ const s = StyleSheet.create({
   },
   listContent: {
     padding: 16,
-    paddingBottom: 32,
   },
   articleCard: {
     backgroundColor: COLORS.white,
@@ -253,13 +264,17 @@ const s = StyleSheet.create({
     fontWeight: "600",
   },
   chevron: {
-    fontSize: 18,
+    fontSize: 24,
     color: COLORS.gray400,
     marginLeft: 8,
   },
   emptyContainer: {
     paddingVertical: 40,
     alignItems: "center",
+  },
+  emptyEmoji: {
+    fontSize: 32,
+    marginBottom: 8,
   },
   emptyText: {
     fontSize: 15,

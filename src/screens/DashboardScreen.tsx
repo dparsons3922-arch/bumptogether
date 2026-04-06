@@ -1,10 +1,24 @@
 import { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  RefreshControl,
+} from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, FRUIT_SIZES, DAILY_TIDBITS } from "../lib/constants";
-import { getProfile } from "../lib/database";
-import { getPregnancyWeek, getBabyAgeDays, getBabyAgeMonths, getStageLabel, calculateStage } from "../lib/stage";
-import { updateProfile } from "../lib/database";
+import { getProfile, updateProfile } from "../lib/database";
+import {
+  getPregnancyWeek,
+  getBabyAgeDays,
+  getBabyAgeMonths,
+  getStageLabel,
+  calculateStage,
+} from "../lib/stage";
+import type { TabScreenProps } from "../lib/types";
 
 function getGreetingTime(): string {
   const hour = new Date().getHours();
@@ -22,29 +36,41 @@ function getDailyTidbit(stage: string): string {
 }
 
 export default function DashboardScreen() {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<TabScreenProps<"Home">["navigation"]>();
+  const insets = useSafeAreaInsets();
   const [profile, setProfile] = useState<any>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadProfile = useCallback(async () => {
+    const p = await getProfile();
+    if (!p) return;
+
+    const computed = calculateStage(p.dueDate, p.birthDate);
+    if (computed !== p.stage) {
+      await updateProfile({ stage: computed });
+      p.stage = computed;
+    }
+
+    setProfile(p);
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
       (async () => {
-        const p = await getProfile();
-        if (!active || !p) return;
-
-        const computed = calculateStage(p.dueDate, p.birthDate);
-        if (computed !== p.stage) {
-          await updateProfile({ stage: computed });
-          p.stage = computed;
-        }
-
-        setProfile(p);
+        await loadProfile();
       })();
       return () => {
         active = false;
       };
-    }, [])
+    }, [loadProfile])
   );
+
+  async function onRefresh() {
+    setRefreshing(true);
+    await loadProfile();
+    setRefreshing(false);
+  }
 
   if (!profile) {
     return (
@@ -85,14 +111,22 @@ export default function DashboardScreen() {
             Your baby is the size of {fruit}!
           </Text>
           <View style={styles.progressBarOuter}>
-            <View style={[styles.progressBarInner, { width: `${Math.round(progress * 100)}%` }]} />
+            <View
+              style={[
+                styles.progressBarInner,
+                { width: `${Math.round(progress * 100)}%` },
+              ]}
+            />
           </View>
           <Text style={styles.progressText}>{week} of 40 weeks</Text>
         </View>
       );
     }
 
-    if (stage === "POSTPARTUM" && (profile.birthDate || profile.dueDate)) {
+    if (
+      stage === "POSTPARTUM" &&
+      (profile.birthDate || profile.dueDate)
+    ) {
       const refDate = profile.birthDate || profile.dueDate;
       const days = getBabyAgeDays(refDate);
       const displayName = childName || "Your baby";
@@ -109,13 +143,18 @@ export default function DashboardScreen() {
       );
     }
 
-    if ((stage.startsWith("INFANT") || stage.startsWith("TODDLER")) && (profile.birthDate || profile.dueDate)) {
+    if (
+      (stage.startsWith("INFANT") || stage.startsWith("TODDLER")) &&
+      (profile.birthDate || profile.dueDate)
+    ) {
       const refDate = profile.birthDate || profile.dueDate;
       const months = getBabyAgeMonths(refDate);
       const displayName = childName || "Your little one";
       return (
         <View style={styles.widgetCard}>
-          <Text style={styles.widgetEmoji}>{stage.startsWith("TODDLER") ? "🧒" : "👶"}</Text>
+          <Text style={styles.widgetEmoji}>
+            {stage.startsWith("TODDLER") ? "🧒" : "👶"}
+          </Text>
           <Text style={styles.widgetTitle}>
             {displayName} is {months} {months === 1 ? "month" : "months"} old!
           </Text>
@@ -137,7 +176,20 @@ export default function DashboardScreen() {
   ];
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 40 },
+      ]}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={COLORS.teal}
+        />
+      }
+    >
       {/* Greeting */}
       <Text style={styles.greeting}>
         Good {getGreetingTime()}, {partner1} & {partner2}!
@@ -164,7 +216,7 @@ export default function DashboardScreen() {
           <TouchableOpacity
             key={link.screen}
             style={styles.quickLinkButton}
-            onPress={() => navigation.navigate(link.screen)}
+            onPress={() => navigation.navigate(link.screen as any)}
             activeOpacity={0.7}
           >
             <Text style={styles.quickLinkIcon}>{link.icon}</Text>
@@ -173,11 +225,18 @@ export default function DashboardScreen() {
         ))}
       </View>
 
-      <TouchableOpacity style={styles.settingsBtn} onPress={() => navigation.navigate("Settings")}>
-        <Text style={styles.settingsBtnText}>⚙️  Settings</Text>
+      <TouchableOpacity
+        style={styles.settingsBtn}
+        onPress={() => navigation.navigate("Settings" as any)}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.settingsBtnText}>Settings</Text>
       </TouchableOpacity>
 
-      <Text style={styles.disclaimer}>BumpTogether provides educational information only. Always consult your healthcare provider for medical advice.</Text>
+      <Text style={styles.disclaimer}>
+        BumpTogether provides educational information only. Always consult your
+        healthcare provider for medical advice.
+      </Text>
     </ScrollView>
   );
 }
@@ -189,7 +248,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 40,
   },
   loadingContainer: {
     flex: 1,
@@ -225,10 +283,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#fde8e8",
+    borderColor: COLORS.gray200,
     padding: 20,
     marginBottom: 16,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 3,
   },
   widgetLabel: {
     fontSize: 12,
@@ -277,9 +340,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#fde8e8",
+    borderColor: COLORS.gray200,
     padding: 18,
     marginBottom: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 2,
   },
   tidbitLabel: {
     fontSize: 12,
@@ -310,10 +378,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#fde8e8",
+    borderColor: COLORS.gray200,
     paddingVertical: 20,
     alignItems: "center",
     marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 2,
   },
   quickLinkIcon: {
     fontSize: 28,

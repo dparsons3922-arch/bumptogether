@@ -1,6 +1,14 @@
 import { useCallback, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  RefreshControl,
+} from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { COLORS, DAILY_TIDBITS, STAGE_MILESTONES } from "../lib/constants";
 import { getProfile, getReadArticleIds, getMilestones } from "../lib/database";
 import { getStageLabel } from "../lib/stage";
@@ -17,40 +25,50 @@ function getDailyTidbit(stage: string): string {
 
 export default function SummaryScreen() {
   const navigation = useNavigation<any>();
+  const insets = useSafeAreaInsets();
   const [stage, setStage] = useState("TTC");
-  const [milestoneStatus, setMilestoneStatus] = useState<Record<string, string | null>>({});
+  const [milestoneStatus, setMilestoneStatus] = useState<
+    Record<string, string | null>
+  >({});
   const [recommendedArticles, setRecommendedArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const loadData = useCallback(async () => {
+    const profile = await getProfile();
+    if (!profile) return;
+
+    const currentStage = profile.stage ?? "TTC";
+    setStage(currentStage);
+
+    const [milestones, readIds] = await Promise.all([
+      getMilestones(),
+      getReadArticleIds(),
+    ]);
+
+    setMilestoneStatus(milestones);
+
+    const stageArticles = getArticlesByStage(currentStage);
+    const unread = stageArticles.filter((a) => !readIds.has(a.id));
+    setRecommendedArticles(unread.slice(0, 5));
+    setLoading(false);
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      (async () => {
-        const profile = await getProfile();
-        if (!active || !profile) return;
-
-        const currentStage = profile.stage ?? "TTC";
-        setStage(currentStage);
-
-        const [milestones, readIds] = await Promise.all([
-          getMilestones(),
-          getReadArticleIds(),
-        ]);
-
-        if (!active) return;
-        setMilestoneStatus(milestones);
-
-        const stageArticles = getArticlesByStage(currentStage);
-        const unread = stageArticles.filter((a) => !readIds.has(a.id));
-        setRecommendedArticles(unread.slice(0, 3));
-
-        setLoading(false);
-      })();
+      loadData();
       return () => {
         active = false;
       };
-    }, [])
+    }, [loadData])
   );
+
+  async function onRefresh() {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  }
 
   if (loading) {
     return (
@@ -63,11 +81,22 @@ export default function SummaryScreen() {
   const stageMilestones = (STAGE_MILESTONES[stage] ?? []).slice(0, 4);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Header */}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 40 },
+      ]}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={COLORS.teal}
+        />
+      }
+    >
       <Text style={styles.heading}>This Week's Summary</Text>
 
-      {/* Stage label */}
       <View style={styles.stageBadge}>
         <Text style={styles.stageBadgeText}>{getStageLabel(stage)}</Text>
       </View>
@@ -105,37 +134,36 @@ export default function SummaryScreen() {
             onPress={() => navigation.navigate("Milestones")}
             activeOpacity={0.7}
           >
-            <Text style={styles.linkButtonText}>View all milestones →</Text>
+            <Text style={styles.linkButtonText}>View all milestones</Text>
           </TouchableOpacity>
         </View>
       )}
 
       {/* Recommended reads */}
-      {recommendedArticles.length > 0 && (
-        <View style={styles.card}>
-          <Text style={styles.cardLabel}>RECOMMENDED READS</Text>
-          {recommendedArticles.map((article) => (
+      <View style={styles.card}>
+        <Text style={styles.cardLabel}>RECOMMENDED READS</Text>
+        {recommendedArticles.length > 0 ? (
+          recommendedArticles.map((article) => (
             <TouchableOpacity
               key={article.id}
               style={styles.articleRow}
-              onPress={() => navigation.navigate("Article", { articleId: article.id })}
+              onPress={() =>
+                navigation.navigate("Article", { articleId: article.id })
+              }
               activeOpacity={0.7}
             >
-              <Text style={styles.articleTitle}>{article.title}</Text>
-              <Text style={styles.articleArrow}>›</Text>
+              <Text style={styles.articleTitle} numberOfLines={2}>
+                {article.title}
+              </Text>
+              <Text style={styles.articleArrow}>{"›"}</Text>
             </TouchableOpacity>
-          ))}
-        </View>
-      )}
-
-      {recommendedArticles.length === 0 && (
-        <View style={styles.card}>
-          <Text style={styles.cardLabel}>RECOMMENDED READS</Text>
+          ))
+        ) : (
           <Text style={styles.emptyText}>
             You're all caught up! Check back as new content is added.
           </Text>
-        </View>
-      )}
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -147,7 +175,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 40,
   },
   loadingContainer: {
     flex: 1,
@@ -183,9 +210,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: "#fde8e8",
+    borderColor: COLORS.gray200,
     padding: 18,
     marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 2,
   },
   cardLabel: {
     fontSize: 12,
