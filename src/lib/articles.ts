@@ -31,8 +31,8 @@ export function getArticleById(id: string): Article | undefined {
 }
 
 export function getArticlesByIds(ids: string[]): Article[] {
-  const idSet = new Set(ids);
-  return articles.filter((a) => idSet.has(a.id));
+  const articleMap = new Map(articles.map((a) => [a.id, a]));
+  return ids.map((id) => articleMap.get(id)).filter((a): a is Article => !!a);
 }
 
 export function getAllArticles(): Article[] {

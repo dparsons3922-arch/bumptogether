@@ -85,7 +85,7 @@ export default function SummaryScreen() {
       style={styles.container}
       contentContainerStyle={[
         styles.content,
-        { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 40 },
+        { paddingTop: insets.top + 12, paddingBottom: 24 },
       ]}
       refreshControl={
         <RefreshControl

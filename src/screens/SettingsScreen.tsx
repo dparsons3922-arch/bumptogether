@@ -48,6 +48,9 @@ export default function SettingsScreen({ onReset }: Props) {
   const today = new Date();
   const threeYearsAgo = new Date(today);
   threeYearsAgo.setFullYear(today.getFullYear() - 3);
+  // Due date: allow up to 2 months past (overdue) to 10 months ahead
+  const twoMonthsAgo = new Date(today);
+  twoMonthsAgo.setMonth(today.getMonth() - 2);
   const tenMonthsAhead = new Date(today);
   tenMonthsAhead.setMonth(today.getMonth() + 10);
 
@@ -167,7 +170,8 @@ export default function SettingsScreen({ onReset }: Props) {
             label="Due date"
             value={dueDate}
             onChange={setDueDate}
-            minimumDate={threeYearsAgo}
+            onClear={() => setDueDate(null)}
+            minimumDate={twoMonthsAgo}
             maximumDate={tenMonthsAhead}
           />
 
@@ -175,6 +179,7 @@ export default function SettingsScreen({ onReset }: Props) {
             label="Birth date"
             value={birthDate}
             onChange={setBirthDate}
+            onClear={() => setBirthDate(null)}
             minimumDate={threeYearsAgo}
             maximumDate={today}
           />

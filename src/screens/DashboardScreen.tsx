@@ -180,7 +180,7 @@ export default function DashboardScreen() {
       style={styles.container}
       contentContainerStyle={[
         styles.content,
-        { paddingTop: insets.top + 16, paddingBottom: insets.bottom + 40 },
+        { paddingTop: insets.top + 16, paddingBottom: 24 },
       ]}
       refreshControl={
         <RefreshControl

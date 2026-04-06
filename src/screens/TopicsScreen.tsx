@@ -14,7 +14,7 @@ export default function TopicsScreen() {
       style={s.container}
       contentContainerStyle={[
         s.content,
-        { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 32 },
+        { paddingTop: insets.top + 12, paddingBottom: 24 },
       ]}
     >
       <Text style={s.heading}>Topics</Text>

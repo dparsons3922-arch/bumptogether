@@ -9,6 +9,7 @@ type Props = {
   label: string;
   value: string | null; // "YYYY-MM-DD" or null
   onChange: (dateString: string) => void;
+  onClear?: () => void;
   minimumDate?: Date;
   maximumDate?: Date;
 };
@@ -43,16 +44,29 @@ export default function DatePickerField({
   label,
   value,
   onChange,
+  onClear,
   minimumDate,
   maximumDate,
 }: Props) {
   const [show, setShow] = useState(false);
 
+  function openPicker() {
+    // If no value is set, immediately set to today so "Done" works
+    if (!value) {
+      let defaultDate = new Date();
+      // Clamp to min/max bounds
+      if (minimumDate && defaultDate < minimumDate) defaultDate = minimumDate;
+      if (maximumDate && defaultDate > maximumDate) defaultDate = maximumDate;
+      onChange(formatDate(defaultDate));
+    }
+    setShow(true);
+  }
+
   function handleChange(event: DateTimePickerEvent, selectedDate?: Date) {
     if (Platform.OS === "android") {
       setShow(false);
     }
-    if (event.type === "set" && selectedDate) {
+    if (selectedDate) {
       onChange(formatDate(selectedDate));
     }
     if (event.type === "dismissed") {
@@ -63,16 +77,27 @@ export default function DatePickerField({
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity
-        style={styles.field}
-        onPress={() => setShow(true)}
-        activeOpacity={0.7}
-      >
-        <Text style={[styles.fieldText, !value && styles.placeholder]}>
-          {formatDisplay(value)}
-        </Text>
-        <Text style={styles.icon}>📅</Text>
-      </TouchableOpacity>
+      <View style={styles.fieldRow}>
+        <TouchableOpacity
+          style={styles.field}
+          onPress={openPicker}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.fieldText, !value && styles.placeholder]}>
+            {formatDisplay(value)}
+          </Text>
+          <Text style={styles.icon}>📅</Text>
+        </TouchableOpacity>
+        {value && onClear && (
+          <TouchableOpacity
+            style={styles.clearBtn}
+            onPress={onClear}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
+            <Text style={styles.clearText}>Clear</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       {show && (
         <View style={styles.pickerContainer}>
           <DateTimePicker
@@ -106,7 +131,13 @@ const styles = StyleSheet.create({
     color: COLORS.gray700,
     marginBottom: 4,
   },
+  fieldRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   field: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: COLORS.gray50,
@@ -125,6 +156,15 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 18,
+  },
+  clearBtn: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+  },
+  clearText: {
+    color: COLORS.gray400,
+    fontSize: 13,
+    fontWeight: "500",
   },
   pickerContainer: {
     backgroundColor: COLORS.white,
