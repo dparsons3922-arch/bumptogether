@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Parsons &middot; Anthropic Pursuit Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1B4F8A;--blue-light:#2563C4;--blue-pale:#EBF2FB;--blue-mid:#D0E4F7;--ink:#0F1923;--ink-med:#3D4F61;--ink-light:#7A8FA0;--cream:#FAFAF8;--white:#FFFFFF;--rule:#D8E4EE;--gold:#C9882A}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+.site-header{background:var(--blue);padding:56px 48px 48px;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;top:-60px;right:-60px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.site-header::after{content:'';position:absolute;bottom:-80px;left:20%;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.03)}
+.header-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:14px}
+.header-name{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,56px);color:#fff;line-height:1.05;margin-bottom:10px}
+.header-sub{font-size:16px;color:rgba(255,255,255,0.65);font-weight:300;margin-bottom:36px}
+.header-metrics{display:flex;gap:2px;flex-wrap:wrap}
+.metric-chip{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:10px 18px;text-align:center;backdrop-filter:blur(4px)}
+.metric-chip .val{display:block;font-family:'DM Serif Display',serif;font-size:22px;color:#fff;line-height:1.1}
+.metric-chip .lbl{display:block;font-size:11px;color:rgba(255,255,255,0.5);letter-spacing:0.05em;margin-top:3px}
+.sticky-nav{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--rule);display:flex;gap:0;overflow-x:auto;padding:0 32px}
+.nav-tab{font-size:13px;font-weight:500;color:var(--ink-light);padding:14px 20px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;text-decoration:none;display:block}
+.nav-tab:hover,.nav-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.page{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+.section{margin-bottom:64px}
+.section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.section-title{font-family:'DM Serif Display',serif;font-size:28px;color:var(--ink);margin-bottom:20px;line-height:1.2}
+.rule{height:1px;background:var(--rule);margin-bottom:28px}
+.verdict-card{background:var(--blue);border-radius:10px;padding:32px 36px;margin-bottom:32px;position:relative;overflow:hidden}
+.verdict-card::before{content:'\2713';position:absolute;right:32px;top:24px;font-size:64px;color:rgba(255,255,255,0.08);font-family:serif}
+.verdict-card h3{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:10px}
+.verdict-card p{font-size:14px;color:rgba(255,255,255,0.75);line-height:1.7;max-width:640px}
+.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+@media(max-width:640px){.company-grid{grid-template-columns:1fr}}
+.company-card{border:1px solid var(--rule);border-radius:10px;padding:24px;background:var(--white)}
+.company-card.primary{border-color:var(--blue);border-width:2px}
+.company-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:14px}
+.badge-primary{background:var(--blue-pale);color:var(--blue)}
+.badge-secondary{background:#FFF3E0;color:#C9882A}
+.company-name{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:6px;color:var(--ink)}
+.company-tagline{font-size:13px;color:var(--ink-light);margin-bottom:16px}
+.company-stats{display:flex;flex-direction:column;gap:8px}
+.stat-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.stat-key{color:var(--ink-light)}
+.stat-val{font-weight:600;color:var(--ink)}
+.stat-val.blue{color:var(--blue)}
+.role-item{background:var(--white);border:1px solid var(--rule);border-radius:8px;padding:18px 22px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.role-item.top{border-left:3px solid var(--blue)}
+.role-title{font-weight:600;font-size:14px;color:var(--ink);margin-bottom:4px}
+.role-detail{font-size:13px;color:var(--ink-light)}
+.role-tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.tag-apply{background:var(--blue-pale);color:var(--blue)}
+.tag-explore{background:#FFF3E0;color:var(--gold)}
+.tag-skip{background:#F5F5F5;color:#999}
+.geo-box{background:var(--blue-pale);border:1px solid var(--blue-mid);border-radius:8px;padding:20px 24px;margin-bottom:20px}
+.geo-box h4{font-size:14px;font-weight:600;color:var(--blue);margin-bottom:8px}
+.geo-box p{font-size:13px;color:var(--ink-med);line-height:1.6}
+.comp-table{width:100%;border-collapse:collapse;font-size:13px}
+.comp-table th{text-align:left;padding:10px 14px;background:var(--ink);color:#fff;font-weight:500}
+.comp-table th:first-child{border-radius:6px 0 0 0}
+.comp-table th:last-child{border-radius:0 6px 0 0}
+.comp-table td{padding:10px 14px;border-bottom:1px solid var(--rule);color:var(--ink-med)}
+.comp-table td:first-child{font-weight:500;color:var(--ink)}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-table tr:nth-child(even) td{background:#F8FAFB}
+.comp-highlight{color:var(--blue);font-weight:600}
+.doc-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.doc-tab-btn{padding:8px 20px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--rule);background:var(--white);color:var(--ink-med);transition:all 0.15s}
+.doc-tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.doc-panel{display:none}
+.doc-panel.active{display:block}
+.doc-card{background:var(--white);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.doc-header{background:var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:center}
+.doc-header-name{font-family:'DM Serif Display',serif;font-size:20px;color:#fff}
+.doc-header-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
+.doc-accent-bar{height:3px;background:var(--blue)}
+.doc-body{padding:28px}
+.resume-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:24px}
+@media(max-width:600px){.resume-metrics{grid-template-columns:repeat(2,1fr)}}
+.r-metric{background:var(--blue-pale);border-radius:6px;padding:12px 10px;text-align:center}
+.r-metric .rv{font-family:'DM Serif Display',serif;font-size:18px;color:var(--blue);display:block}
+.r-metric .rl{font-size:10px;color:var(--ink-light);display:block;margin-top:2px}
+.doc-section-head{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue);margin:20px 0 4px;padding-bottom:4px;border-bottom:2px solid var(--blue)}
+.job-block{margin:12px 0}
+.job-title-row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px}
+.jt{font-weight:600;font-size:13px;color:var(--ink)}
+.jc{font-size:12px;color:var(--blue);font-weight:600}
+.jd{font-size:11px;color:var(--ink-light);font-style:italic}
+.jl{font-size:11px;color:var(--ink-light);font-style:italic;margin-bottom:6px}
+.job-bullets{padding-left:14px;margin:0}
+.job-bullets li{font-size:12px;color:var(--ink-med);margin-bottom:3px;line-height:1.5}
+.cl-body p{font-size:13px;color:var(--ink-med);line-height:1.75;margin-bottom:14px}
+.cl-body .cl-meta{font-size:12px;color:var(--ink-light);margin-bottom:20px}
+.steps-list{list-style:none;counter-reset:steps}
+.steps-list li{counter-increment:steps;display:flex;gap:16px;margin-bottom:16px;align-items:flex-start}
+.steps-list li::before{content:counter(steps);flex-shrink:0;width:28px;height:28px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;margin-top:2px}
+.step-content h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.step-content p{font-size:13px;color:var(--ink-med);line-height:1.6}
+@media print{.sticky-nav{display:none}.section{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="site-header">
+<div class="header-label">Career Pursuit Brief &middot; Confidential</div>
+<div class="header-name">David Parsons</div>
+<div class="header-sub">Targeting: Strategic Account Executive, Industries &middot; Anthropic</div>
+<div class="header-metrics">
+<div class="metric-chip"><span class="val">234%</span><span class="lbl">FY25 Quota</span></div>
+<div class="metric-chip"><span class="val">$4.46M</span><span class="lbl">FY25 TCV</span></div>
+<div class="metric-chip"><span class="val">#1</span><span class="lbl">Worldwide FY24 &amp; FY25</span></div>
+<div class="metric-chip"><span class="val">2&times;</span><span class="lbl">President's Club</span></div>
+<div class="metric-chip"><span class="val">$380B</span><span class="lbl">Anthropic Valuation</span></div>
+</div>
+</div>
+<nav class="sticky-nav">
+<a class="nav-tab active" href="#overview">Overview</a>
+<a class="nav-tab" href="#roles">Target Roles</a>
+<a class="nav-tab" href="#comp">Compensation</a>
+<a class="nav-tab" href="#documents">Resume &amp; Cover Letter</a>
+<a class="nav-tab" href="#nextsteps">Next Steps</a>
+</nav>
+<div class="page">
+<div class="section" id="overview">
+<div class="section-label">01 &middot; Market Overview</div>
+<div class="section-title">Why Anthropic, Why Now</div>
+<div class="rule"></div>
+<div class="verdict-card">
+<h3>Primary Target: Anthropic</h3>
+<p>Anthropic is the strongest match on every measurable dimension &mdash; compensation, brand, mission, and sales culture. Revenue grew from $1B ARR (Dec 2024) to $14B+ ARR (Feb 2026). 85% of AEs hit quota. 70% of the Fortune 100 use Claude. The company raised $30B at a $380B valuation in February 2026 with IPO preparations underway. David's #1 worldwide ranking and 234% attainment is precisely the profile Anthropic's enterprise sales org is hiring for.</p>
+</div>
+<div class="company-grid">
+<div class="company-card primary">
+<div class="company-badge badge-primary">&#11088; Primary Target</div>
+<div class="company-name">Anthropic</div>
+<div class="company-tagline">AI safety &middot; Claude &middot; Enterprise GTM</div>
+<div class="company-stats">
+<div class="stat-row"><span class="stat-key">Valuation</span><span class="stat-val blue">$380B</span></div>
+<div class="stat-row"><span class="stat-key">ARR</span><span class="stat-val">$14B+ (Feb 2026)</span></div>
+<div class="stat-row"><span class="stat-key">% AEs hitting quota</span><span class="stat-val blue">85%</span></div>
+<div class="stat-row"><span class="stat-key">Fortune 100 penetration</span><span class="stat-val">70%</span></div>
+<div class="stat-row"><span class="stat-key">Boston office</span><span class="stat-val blue">&#10003; Listed officially</span></div>
+<div class="stat-row"><span class="stat-key">In-office requirement</span><span class="stat-val">25% hybrid</span></div>
+<div class="stat-row"><span class="stat-key">Open sales roles</span><span class="stat-val">140+</span></div>
+</div>
+</div>
+<div class="company-card">
+<div class="company-badge badge-secondary">&#9888; Watch List</div>
+<div class="company-name">Lovable</div>
+<div class="company-tagline">AI app builder &middot; vibe-coding &middot; PLG</div>
+<div class="company-stats">
+<div class="stat-row"><span class="stat-key">Valuation</span><span class="stat-val">$6.6B</span></div>
+<div class="stat-row"><span class="stat-key">ARR</span><span class="stat-val">$200M+ (Nov 2025)</span></div>
+<div class="stat-row"><span class="stat-key">Enterprise AE roles</span><span class="stat-val">Stockholm, London only</span></div>
+<div class="stat-row"><span class="stat-key">Boston AE roles</span><span class="stat-val" style="color:#C9882A">&#10060; None currently</span></div>
+<div class="stat-row"><span class="stat-key">GTM maturity</span><span class="stat-val">Early-stage buildout</span></div>
+<div class="stat-row"><span class="stat-key">Risk level</span><span class="stat-val" style="color:#C9882A">Higher variance</span></div>
+</div>
+</div>
+</div>
+<div class="geo-box">
+<h4>&#128205; Boston Geography &mdash; The Good News</h4>
+<p>Anthropic lists <strong>Boston, MA</strong> as an official office location on their careers page. Their 25% in-office hybrid policy means David can be Boston-based and satisfy requirements without a weekly NYC commute. Several sales roles explicitly list Atlanta, Austin, Boston, and Chicago as valid locations alongside NYC. The right framing during interviews is as an East Coast enterprise seller who will be client-facing in market &mdash; not someone asking for a special arrangement.</p>
+</div>
+</div>
+<div class="section" id="roles">
+<div class="section-label">02 &middot; Role Analysis</div>
+<div class="section-title">Best-Fit Positions at Anthropic</div>
+<div class="rule"></div>
+<div class="role-item top">
+<div>
+<div class="role-title">Strategic Account Executive, Industries</div>
+<div class="role-detail">Flagship target &middot; Industry verticals (FS, Healthcare, Tech, etc.) &middot; Multi-stakeholder enterprise deals &middot; 10+ years experience preferred &middot; OTE $360K&ndash;$435K</div>
+</div>
+<span class="role-tag tag-apply">Apply Now</span>
+</div>
+<div class="role-item top">
+<div>
+<div class="role-title">Strategic AE, Digital Native Business &amp; Cybersecurity</div>
+<div class="role-detail">Strong fit given Cyberbit background &middot; Selling into CISOs and security leaders &middot; NYC or SF listed but geography flexible</div>
+</div>
+<span class="role-tag tag-apply">Apply Now</span>
+</div>
+<div class="role-item top">
+<div>
+<div class="role-title">Enterprise Account Executive, Industries</div>
+<div class="role-detail">Slightly lower seniority tier &middot; Easier entry point &middot; Same vertical focus &middot; Boston listed as valid location &middot; OTE $280K&ndash;$360K</div>
+</div>
+<span class="role-tag tag-apply">Apply Now</span>
+</div>
+<div class="role-item">
+<div>
+<div class="role-title">Manager, Account Executive &mdash; Enterprise Sales (Industries)</div>
+<div class="role-detail">Requires 15+ yrs enterprise sales, 5+ yrs leadership &middot; Could be a stretch but David's team lead experience supports it &middot; OTE $435K&ndash;$550K</div>
+</div>
+<span class="role-tag tag-explore">Explore</span>
+</div>
+<div class="role-item">
+<div>
+<div class="role-title">Enterprise AE, Federal Partners Sales</div>
+<div class="role-detail">Requires SI/ISV experience &middot; Less direct match to David's background &middot; Washington DC primary location</div>
+</div>
+<span class="role-tag tag-skip">Lower Priority</span>
+</div>
+</div>
+<div class="section" id="comp">
+<div class="section-label">03 &middot; Compensation</div>
+<div class="section-title">What the Numbers Look Like</div>
+<div class="rule"></div>
+<table class="comp-table">
+<thead>
+<tr><th>Factor</th><th>Anthropic</th><th>Lovable</th></tr>
+</thead>
+<tbody>
+<tr><td>OTE (Strategic AE)</td><td class="comp-highlight">$360K &ndash; $435K</td><td>~$240K &ndash; $400K (estimated)</td></tr>
+<tr><td>Top performer OTE</td><td class="comp-highlight">Up to $710K</td><td>Unknown (new org)</td></tr>
+<tr><td>Base salary</td><td>$135K &ndash; $165K</td><td>$120K &ndash; $180K (estimated)</td></tr>
+<tr><td>% AEs hitting quota</td><td class="comp-highlight">85%</td><td>Unknown (no data)</td></tr>
+<tr><td>Average deal size</td><td>$478K</td><td>Unknown</td></tr>
+<tr><td>Average sales cycle</td><td>81 days</td><td>Unknown</td></tr>
+<tr><td>Pre-IPO equity</td><td class="comp-highlight">$380B valuation &middot; IPO prep underway</td><td>$6.6B valuation &middot; Earlier stage</td></tr>
+<tr><td>Glassdoor comp rating</td><td>4.9 / 5</td><td>2.6 / 5 (1 review)</td></tr>
+</tbody>
+</table>
+<p style="font-size:12px;color:var(--ink-light);margin-top:12px;">Sources: RepVue, Glassdoor, Anthropic job postings (OTE ranges), company disclosures. Lovable comp estimated based on Series B stage comparables.</p>
+</div>
+<div class="section" id="documents">
+<div class="section-label">04 &middot; Application Materials</div>
+<div class="section-title">Resume &amp; Cover Letter</div>
+<div class="rule"></div>
+<div class="doc-tabs">
+<button class="doc-tab-btn active" onclick="showDoc('resume',this)">Resume</button>
+<button class="doc-tab-btn" onclick="showDoc('coverletter',this)">Cover Letter</button>
+</div>
+<div class="doc-panel active" id="doc-resume">
+<div class="doc-card">
+<div class="doc-header">
+<div>
+<div class="doc-header-name">David Parsons</div>
+<div class="doc-header-sub">Strategic Account Executive &middot; Enterprise AI &amp; SaaS &middot; Greater Boston, MA</div>
+</div>
+<div style="font-size:11px;color:rgba(255,255,255,0.4);text-align:right;">david.parsons@freshworks.com<br>(508) 479-8557</div>
+</div>
+<div class="doc-accent-bar"></div>
+<div class="doc-body">
+<div class="resume-metrics">
+<div class="r-metric"><span class="rv">234%</span><span class="rl">FY25 Quota Attainment</span></div>
+<div class="r-metric"><span class="rv">$4.46M</span><span class="rl">FY25 Total Contract Value</span></div>
+<div class="r-metric"><span class="rv">$2.2M</span><span class="rl">FY25 ARR Closed</span></div>
+<div class="r-metric"><span class="rv">2&times;</span><span class="rl">President's Club Wins</span></div>
+</div>
+<div class="doc-section-head">Professional Summary</div>
+<p style="font-size:12px;color:var(--ink-med);line-height:1.7;margin-top:8px;">Two-time, back-to-back #1 Strategic Account Executive globally with a decade-long track record of selling complex enterprise SaaS into Fortune 500 organizations across cloud infrastructure, IT management, and cybersecurity. Consistently top-ranked at companies acquired for hundreds of millions &mdash; CloudHealth (VMware, $609M), Cyberbit, and Device42 (Freshworks, $230M) &mdash; bringing the start-up intensity and revenue discipline that high-growth AI companies demand. Specializes in building lighthouse customer relationships, navigating multi-stakeholder enterprise sales cycles, and closing eight-figure pipeline with a consultative, ROI-focused approach.</p>
+<div class="doc-section-head">Professional Experience</div>
+<div class="job-block">
+<div class="job-title-row"><span class="jt">Regional Sales Director &mdash; Strategic Accounts</span><span class="jd">May 2022 &ndash; Present</span></div>
+<div class="job-title-row"><span class="jc">Device42 / Freshworks</span><span class="jl">Greater Boston &middot; Enterprise (4,000+ employees) &middot; Acquired for $230M</span></div>
+<ul class="job-bullets" style="margin-top:6px;">
+<li>Ranked #1 worldwide FY25 at 234% quota &mdash; $4.46M TCV, $2.2M ARR</li>
+<li>Ranked #1 worldwide FY24 at 105% &mdash; $3.2M TCV, $1.46M ARR; #1 Strategic Rep all of Freshworks Q4 FY24</li>
+<li>Back-to-back Freshworks President's Club (FY24 &amp; FY25)</li>
+<li>Led all reps in FY23 for ARR, TCV, and new logos at 105% attainment</li>
+<li>#1 for closed business with strategic partner Freshworks FY23 &mdash; contributed to acquisition decision</li>
+<li>Managed complex multi-stakeholder cycles into global enterprises; CIO, IT Director, Procurement</li>
+</ul>
+</div>
+<div class="job-block">
+<div class="job-title-row"><span class="jt">Enterprise Account Executive</span><span class="jd">Mar 2021 &ndash; May 2022</span></div>
+<div class="job-title-row"><span class="jc">Cyberbit</span><span class="jl">Boston, MA &middot; Cybersecurity simulation platform</span></div>
+<ul class="job-bullets" style="margin-top:6px;">
+<li>#1 rep for New Logos in 2021</li>
+<li>Closed the largest cloud deal in company history</li>
+<li>Sold to CISOs, security directors, and L&amp;D leaders at Fortune 500, government, and military orgs</li>
+</ul>
+</div>
+<div class="job-block">
+<div class="job-title-row"><span class="jt">Account Executive</span><span class="jd">Dec 2018 &ndash; Mar 2021</span></div>
+<div class="job-title-row"><span class="jc">CloudHealth by VMware</span><span class="jl">Greater Boston &middot; Cloud cost management &middot; Acquired by VMware for $609M</span></div>
+<ul class="job-bullets" style="margin-top:6px;">
+<li>108% quota attainment (2020), 105% (2019)</li>
+<li>Closed the first new logo for VMware's newly launched Secure State product</li>
+</ul>
+</div>
+<div class="doc-section-head">Education</div>
+<p style="font-size:12px;color:var(--ink-med);margin-top:8px;"><strong>University of Colorado Boulder &mdash; Leeds School of Business</strong> &middot; B.B.A. Finance, Minor Economics &middot; 2012&ndash;2016 &middot; Study Abroad: UNSW Sydney (2014&ndash;15)</p>
+<div class="doc-section-head">Certifications</div>
+<p style="font-size:12px;color:var(--ink-med);margin-top:8px;">AWS Technical Professional &middot; AWS Business Professional &middot; CloudHealth VSP &middot; Bloomberg Market Concepts</p>
+</div>
+</div>
+</div>
+<div class="doc-panel" id="doc-coverletter">
+<div class="doc-card">
+<div class="doc-header">
+<div>
+<div class="doc-header-name">Cover Letter</div>
+<div class="doc-header-sub">Strategic Account Executive, Industries &middot; Anthropic</div>
+</div>
+</div>
+<div class="doc-accent-bar"></div>
+<div class="doc-body cl-body">
+<p class="cl-meta">David Parsons &middot; Greater Boston, MA &middot; (508) 479-8557 &middot; david.parsons@freshworks.com</p>
+<p>Dear Anthropic Hiring Team,</p>
+<p>I am writing to express my interest in the Strategic Account Executive, Industries role at Anthropic. Over the past decade, I have built my career at the intersection of enterprise SaaS sales and transformative technology &mdash; at CloudHealth (acquired by VMware for $609M), Cyberbit, and most recently Device42 (acquired by Freshworks for $230M), where I was ranked the #1 sales rep worldwide in both FY24 and FY25. The opportunity to bring that same enterprise discipline and intensity to Anthropic, at a moment when AI adoption inside Fortune 500 organizations is accelerating faster than any technology cycle I have witnessed, is exactly the kind of challenge I have been building toward.</p>
+<p>What draws me specifically to Anthropic and the Industries team is the scope of the problem and the quality of the product behind it. Selling safe, frontier AI into large enterprise organizations is not a transactional motion &mdash; it requires the kind of consultative, trusted-advisor relationship-building that I have practiced throughout my career. At Device42, I managed strategic accounts with 4,000+ employees, navigated multi-stakeholder procurement cycles across CIOs, IT Directors, and C-suite executives, and closed $4.46M TCV in FY25 alone. I understand what it takes to become a lighthouse customer advocate: it means understanding a customer's business model deeply enough to co-innovate on their roadmap, not just close a license renewal.</p>
+<p>My results speak to a pattern, not a single year: 234% quota attainment in FY25, 105% in FY24 and FY23, back-to-back President's Club, and #1 new logos company-wide in FY23. Every organization I have worked for has been at an early-to-growth stage dealing with rapid product evolution, limited brand recognition in new segments, and the need to build greenfield territory from scratch. That is the environment where I thrive. At Cyberbit, I closed the largest cloud deal in company history in my first full year. At CloudHealth, I closed the first new logo for a newly launched product. The pattern is consistent.</p>
+<p>My background in cybersecurity and cloud infrastructure sales maps directly to the Industries mandate. Having sold into CISOs, security operations leaders, and IT management buyers, I have developed fluency in the technical and business conversations that enterprise AI adoption requires. I know how to earn credibility with engineering and IT stakeholders while simultaneously building the commercial case with economic buyers &mdash; essential when both technical feasibility and strategic ROI need to be validated.</p>
+<p>I am also motivated by Anthropic's mission in a way that feels genuine. The responsible development of frontier AI is not a marketing position &mdash; it is the lens through which I would represent any product I sell. The ability to tell customers that the AI I am bringing them is built to be safe, interpretable, and steerable is a differentiator I would lean into in every conversation.</p>
+<p>I would welcome the opportunity to discuss how my experience aligns with what you are building on the Industries team.</p>
+<p>Sincerely,<br><strong>David Parsons</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="nextsteps">
+<div class="section-label">05 &middot; Action Plan</div>
+<div class="section-title">Recommended Next Steps</div>
+<div class="rule"></div>
+<ol class="steps-list">
+<li>
+<div class="step-content">
+<h4>Apply to Strategic AE, Industries immediately</h4>
+<p>Anthropic reviews applications on a rolling basis with no listed deadline. Anthropic's sales hiring cycle is notably fast &mdash; speed matters. Apply at anthropic.com/careers to the Strategic AE, Industries role first, then the Digital Native Business &amp; Cybersecurity role.</p>
+</div>
+</li>
+<li>
+<div class="step-content">
+<h4>Warm outreach to Anthropic's sales leadership on LinkedIn</h4>
+<p>Identify Anthropic's Head of Americas (Kate Jensen) or the relevant VP/Director for the Industries team. Send a concise note leading with #1 worldwide ranking and 234% attainment &mdash; don't bury the lede. The goal is a conversation, not a pitch.</p>
+</div>
+</li>
+<li>
+<div class="step-content">
+<h4>Frame Boston proactively &mdash; not defensively</h4>
+<p>Boston is listed as an official Anthropic office. Position yourself as an East Coast enterprise seller who will be in-market with customers &mdash; not someone requesting a remote exception. The 25% hybrid policy is designed for exactly this arrangement.</p>
+</div>
+</li>
+<li>
+<div class="step-content">
+<h4>Prepare Claude-specific interview talking points</h4>
+<p>Study Claude's enterprise capabilities, API pricing model, and key use cases in IT/cloud/cybersecurity. Map 2&ndash;3 specific deals from your career (CloudHealth, Cyberbit, Device42) to Anthropic's language: "lighthouse customers," "multi-stakeholder cycles," "trusted advisor," "co-innovate on roadmap."</p>
+</div>
+</li>
+<li>
+<div class="step-content">
+<h4>Negotiate equity aggressively if an offer comes</h4>
+<p>At Anthropic's $380B valuation with IPO preparations underway, the difference between a standard and strong equity package could represent hundreds of thousands of dollars. The comp range is $360K&ndash;$435K OTE base; top performers hit $710K. Treat equity as a negotiating priority equal to base.</p>
+</div>
+</li>
+<li>
+<div class="step-content">
+<h4>Keep Lovable as a speculative backup</h4>
+<p>If Anthropic doesn't advance, revisit Lovable's Head of Global Sales and Account Executive (multiple locations) roles &mdash; the only Boston-viable options. The enterprise GTM is still nascent but the company's growth rate ($200M+ ARR in under 2 years) is extraordinary.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<script>
+const navTabs=document.querySelectorAll('.nav-tab');
+const sections=document.querySelectorAll('.section');
+window.addEventListener('scroll',()=>{
+let current='';
+sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.id;});
+navTabs.forEach(t=>{t.classList.toggle('active',t.getAttribute('href')==='#'+current);});
+});
+function showDoc(id,btn){
+document.querySelectorAll('.doc-panel').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.doc-tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('doc-'+id).classList.add('active');
+btn.classList.add('active');
+}
+</script>
+</body>
+</html>
